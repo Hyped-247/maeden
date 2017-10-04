@@ -19,7 +19,7 @@ import java.util.StringTokenizer;
 public class SensoryPacket
 {
 
-    public static final String NUMLINES = "8";
+    static final String NUMLINES = "8";
 
     String status;
     String smell;
@@ -83,7 +83,8 @@ public class SensoryPacket
      * @param gridIn the reader connected to the server
      * @return the array of String representing the raw (unprocessed) sensory data starting with smell
      */
-    protected String[] getRawSenseDataFromGrid(BufferedReader gridIn) {
+    // change from protected to private
+     private String[] getRawSenseDataFromGrid(BufferedReader gridIn) {
         String[] result = new String[Integer.parseInt(NUMLINES)];
         try {
             JSONParser jsonParser = new JSONParser();
@@ -103,7 +104,8 @@ public class SensoryPacket
      * Perform any pre-processing, especially on the visual data
      * @param rawSenseData the raw unprocessed sense data
      */
-    protected void initPreProcessedFields(String[] rawSenseData){
+    // change from protected to private
+    private void initPreProcessedFields(String[] rawSenseData){
         try {
             // smell
             this.smell = rawSenseData[0];
@@ -134,7 +136,8 @@ public class SensoryPacket
      * and convert it to a 2D array of Vectors of Strings.
      * @param info the visual sensory data string (structered as parenthesized list of lists) from server
      */
-    protected void processRetinalField(String info) {
+    // change from protected to private
+    private void processRetinalField(String info) {
         boolean seeAgent;
         StringTokenizer visTokens = new StringTokenizer(info, "(", true);
         visTokens.nextToken();

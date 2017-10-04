@@ -13,6 +13,7 @@ import org.json.simple.JSONArray;
  */
 public class SensoryPacketSender
 {
+    private final int SIZE = 8;
     private int xCols, yRows;
     private LinkedListGOB[][] myMap;                 //holds gridobjects
     private GridObject food;
@@ -39,12 +40,13 @@ public class SensoryPacketSender
      * LINE8: last action's result status (ok or fail)
      * @param a the agent to which the information should be sent
      */
-    @SuppressWarnings("unchecked")
+
     public void sendSensationsToAgent(GOBAgent a) {
         if (a.getNeedUpdate()) {
             JSONArray jsonArray = new JSONArray();
-            // We added String.valueOf to make sure that everything that is send is a String.
-            jsonArray.add(String.valueOf(Grid.relDirToPt(a.pos, new Point(a.dx(), a.dy()), food.pos))); // 1. send smell
+            Object[] setDate = new String[SIZE];
+            setDate[0] = null; // Add state
+            setDate[1] = Grid.relDirToPt(a.pos, new Point(a.dx(), a.dy()), food.pos); // 1. send smell
             String inv = "(";
             if (a.inventory().size() > 0){
                 for (GridObject gob : a.inventory()) {
@@ -52,14 +54,17 @@ public class SensoryPacketSender
                 }
             }
             inv = inv.trim() + ")";
-            jsonArray.add(String.valueOf(inv)); // 2. send inventory
-            jsonArray.add(String.valueOf(visField(a.pos, new Point(a.dx(), a.dy())))); // 3. send visual info
-            jsonArray.add(String.valueOf(groundContents(a, myMap[a.pos.x][a.pos.y])));  // 4.send contents of current location
-            //jsonArray.add(String.valueOf(sendAgentMessages(a)));  // 5. send any messages that may be heard by the agent
-            jsonArray.add("[]");
-            jsonArray.add(String.valueOf(a.energy()));  // 6. send agent's energy
-            jsonArray.add(String.valueOf(a.lastActionStatus()));// 7. send last-action status
-            jsonArray.add(String.valueOf(a.simTime())); // 8. send world time
+            setDate[2] = inv;  // 2. send inventory
+            setDate[3] = visField(a.pos, new Point(a.dx(), a.dy())); // 3. send visual info
+            setDate[4] = groundContents(a, myMap[a.pos.x][a.pos.y]); // 4.send contents of current location
+            setDate[5] = null; // sendAgentMessages(a) // 5. send any messages that may be heard by the agent
+            setDate[6] = a.energy(); // 6. send agent's energy
+            setDate[7] = a.lastActionStatus(); // 7. send last-action status
+            setDate[8] = a.simTime(); // 8. send world time
+
+            for (int i = 0; i < SIZE; i++) {// This might be off by one
+                jsonArray.add(String.valueOf(setDate[i]));
+            }
             a.send().println(jsonArray); // send JsonArray
             a.setNeedUpdate(false);
         }
