@@ -61,7 +61,6 @@ public class SensoryPacketSender
             setDate[6] = a.energy(); // 6. send agent's energy
             setDate[7] = a.lastActionStatus(); // 7. send last-action status
             setDate[8] = a.simTime(); // 8. send world time
-
             for (int i = 0; i < SIZE; i++) {// This might be off by one
                 jsonArray.add(String.valueOf(setDate[i]));
             }
@@ -80,7 +79,7 @@ public class SensoryPacketSender
      * The row behind the agent is given first followed by its current row and progressing away from the agent
      * with characters left-to-right in visual field.
      */
-    public String visField(Point aPt, Point heading){
+     String visField(Point aPt, Point heading){
         String myString = "(";
         int senseRow, senseCol;
         //iterate from one behind to five in front of agent point
@@ -152,7 +151,7 @@ public class SensoryPacketSender
      * Post: String is returned in form: ("cont1" "cont2" "cont3" ...)
      *       where cont is the individual contents of the cell
      */
-    public String groundContents(GOBAgent a, List<GridObject> thisCell) {
+     String groundContents(GOBAgent a, List<GridObject> thisCell) {
         if (thisCell != null && ! thisCell.isEmpty()) {
             //encapsulate contents within parentheses
             String ground = "(";
