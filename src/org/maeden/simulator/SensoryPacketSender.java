@@ -41,7 +41,7 @@ public class SensoryPacketSender
      * @param a the agent to which the information should be sent
      */
 
-    public void sendSensationsToAgent(GOBAgent a) {
+     void sendSensationsToAgent(GOBAgent a) {
         if (a.getNeedUpdate()) {
             JSONArray jsonArray = new JSONArray();
             Object[] setDate = new String[SIZE];
