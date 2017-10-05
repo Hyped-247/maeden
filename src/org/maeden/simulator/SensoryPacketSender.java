@@ -42,10 +42,12 @@ public class SensoryPacketSender
      */
 
      JSONArray sendSensationsToAgent(GOBAgent a) {
-         JSONArray inv = new JSONArray();
+         JSONArray inv = new JSONArray(); // inventory info
          JSONArray jsonArray = new JSONArray();
+         String status = String.valueOf(a.status());
+
         if (a.getNeedUpdate()) {
-            jsonArray.add(String.valueOf(a.status())); // 0. // Add state
+            jsonArray.add(getstatus(a.status())); // 0. // Add state
             jsonArray.add(String.valueOf(Grid.relDirToPt(a.pos, new Point(a.dx(), a.dy()), food.pos))); // 1. send smell
             if (!a.inventory().isEmpty()) {
                 for (int i = 0; i < a.inventory().size(); i++) {
@@ -55,13 +57,27 @@ public class SensoryPacketSender
             jsonArray.add(inv); // 2. send inventory
             jsonArray.add(visField(a.pos, new Point(a.dx(), a.dy()))); // 3. send visual info
             jsonArray.add(groundContents(a, myMap[a.pos.x][a.pos.y]));  // 4.send contents of current location
-            jsonArray.add(new JSONArray()); // 5. send any messages that may be heard by the agent
-            jsonArray.add(a.energy()); // 6. send agent's energy
-            jsonArray.add(a.lastActionStatus()); // 7. send last-action status
-            jsonArray.add(a.simTime()); // 8. send world time
+            jsonArray.add(new JSONArray()); // 5. send any messages that may be heard by the agent //Todo: Fix this.
+            jsonArray.add(a.energy()); // 6. send agent's energy // Todo: This has to be a String
+            jsonArray.add(String.valueOf(a.lastActionStatus())); // 7. send last-action status
+            jsonArray.add(a.simTime()); // 8. send world time // Todo: This has to be a String
             a.setNeedUpdate(false);
         }
          return jsonArray; // send JsonArray
+     }
+     private String getstatus(char s){
+         String status = String.valueOf(s);
+         if ((status).equals("d")){
+             status = "DIE";
+         }
+         else if ((status).equals("e")){
+             status = "END";
+         }else if ((status).equals("s")){
+             status = "SUCCESS";
+         }else {
+             status = "CONTINUE";
+         }
+         return status;
      }
 
     /**
