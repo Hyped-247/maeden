@@ -82,21 +82,18 @@ public class SensoryPacketSender
     String[][][] vis(Point aPt, Point heading) {
         String[][][] vis = new String[1][7][5];
         int senseRow, senseCol;
-        for (int relCol = 0; relCol < 7; relCol++) {
-            for (int relRow = 0; relRow < 5; relRow++) {
+        for (int relRow = -1; relRow < 5; relRow++) {
+            for (int relCol = -2; relCol < 2; relCol++) {
                 senseRow = aPt.x + relRow * heading.x + relCol * -heading.y;
                 senseCol = aPt.y + relRow * heading.y + relCol * heading.x;
 
-              //  vis[0][relCol][relRow] = showChar(mapRef(senseRow, senseCol), heading);
-            }
+                vis[0][relCol][relRow] = visChar(mapRef(senseRow, senseCol), heading);
 
+            }
         }
         return new String[][][];
     }
-
-
-
-     String visField(Point aPt, Point heading){
+    String visField(Point aPt, Point heading){
         String myString = "(";
         int senseRow, senseCol;
         //iterate from one behind to five in front of agent point
@@ -128,25 +125,25 @@ public class SensoryPacketSender
      * @param heading (which is not used)
      * @return a String that represents a list of items in the cell
      */
-    private String visChar(List<GridObject> cellContents, Point heading){
-        String cellConts = "(";
+    private String[] visChar(List<GridObject> cellContents, Point heading){
+        String[] visChar = new String[cellContents.size()];
+        String onevischar;
         //if there are any gridobjects in the cell iterate and collect them
         if (cellContents != null && !cellContents.isEmpty()) {
             //iterate through cellContents, gather printchars or agent IDs
-            for(GridObject gObj : cellContents) {
-                if(gObj.printChar() == 'A') {           //if it is an agent
-                    cellConts = cellConts + "\"" + ((GOBAgent)gObj).getAgentID() + "\" ";
-                } else {        //if gridobject is not an agent, return its print character
-                    cellConts = cellConts + "\"" + gObj.printChar() + "\" ";
+            for (int i = 0; i < cellContents.size(); i++) {
+                onevischar = String.valueOf(cellContents.get(i).printChar());
+                if (onevischar.equals('A')){
+                    visChar[i] =  "\"" + ((GOBAgent)cellContents.get(i)).getAgentID() + "\" ";
+                }else {
+                    visChar[i] = "\"" + cellContents.get(i).printChar() + "\" ";
                 }
             }
-            //trim leading and closing spaces
-            cellConts = cellConts.trim() + ')';
-            return cellConts;
+            return visChar;
         }
         //otherwise return a space representing no gridobject
         else
-            return "()";
+            return visChar;
     }
 
     
@@ -171,7 +168,7 @@ public class SensoryPacketSender
      String[] groundContents(GOBAgent a, List<GridObject> thisCell) {
          String[] groundcontents = new String[thisCell.size()];
          String onecontents;
-         if (thisCell != null && ! thisCell.isEmpty()) {
+         if (thisCell != null && !thisCell.isEmpty()) {
             //iterate through the cell, gather the print-chars
             for (int i = 0; i < thisCell.size(); i++) {
                 onecontents = String.valueOf(thisCell.get(i).printChar());
@@ -184,7 +181,6 @@ public class SensoryPacketSender
             }
             return groundcontents;
         }
-        return groundcontents ;
+        return groundcontents;
     }
-
 }
