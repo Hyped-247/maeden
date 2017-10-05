@@ -80,7 +80,7 @@ public class SensoryPacketSender
      * with characters left-to-right in visual field.
      */
 
-     JSONArray visField(Point aPt, Point heading) {
+    private JSONArray visField(Point aPt, Point heading) {
         JSONArray firstdimension = new JSONArray();
         JSONArray seconddimension = new JSONArray();
         int senseRow, senseCol;
