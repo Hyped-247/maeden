@@ -46,7 +46,7 @@ public class SensoryPacketSender
          JSONArray jsonArray = new JSONArray();
          Object[] setDate = new Object[SIZE];
         if (a.getNeedUpdate()) {
-            setDate[0] = null; // Add state
+            setDate[0] = a.status(); // Add state
             setDate[1] = Grid.relDirToPt(a.pos, new Point(a.dx(), a.dy()), food.pos); // 1. send smell
             if (!a.inventory().isEmpty()) {
                 for (int i = 0; i < a.inventory().size(); i++) {
@@ -61,6 +61,7 @@ public class SensoryPacketSender
             setDate[7] = a.lastActionStatus(); // 7. send last-action status
             setDate[8] = a.simTime(); // 8. send world time
             for (int i = 0; i < SIZE; i++) {// This might be off by one
+                // Todo: You are turning everything to a String. This should not happen.
                 jsonArray.add(String.valueOf(setDate[i]));
             }
             a.setNeedUpdate(false);
@@ -79,40 +80,19 @@ public class SensoryPacketSender
      * with characters left-to-right in visual field.
      */
 
-    String[][][] vis(Point aPt, Point heading) {
-        String[][][] vis = new String[1][7][5];
+     JSONArray visField(Point aPt, Point heading) {
+        JSONArray firstdimension = new JSONArray();
+        JSONArray seconddimension = new JSONArray();
         int senseRow, senseCol;
         for (int relRow = -1; relRow < 5; relRow++) {
             for (int relCol = -2; relCol < 2; relCol++) {
                 senseRow = aPt.x + relRow * heading.x + relCol * -heading.y;
                 senseCol = aPt.y + relRow * heading.y + relCol * heading.x;
-
-                vis[0][relCol][relRow] = visChar(mapRef(senseRow, senseCol), heading);
-
+                seconddimension.add(visChar(mapRef(senseRow, senseCol), heading));
             }
         }
-        return new String[][][];
-    }
-    String visField(Point aPt, Point heading){
-        String myString = "(";
-        int senseRow, senseCol;
-        //iterate from one behind to five in front of agent point
-        for (int relRow=-1; relRow <= 5; relRow++) {
-            //add paren for the row
-            myString += "(";
-            String rowString = "";
-            //iterate from two to the left to two to the right of agent point
-            for (int relCol=-2; relCol <= 2; relCol++){
-                senseRow = aPt.x + relRow * heading.x + relCol * -heading.y;
-                senseCol = aPt.y + relRow * heading.y + relCol * heading.x;
-                //add cell information
-                rowString += " " + visChar(mapRef(senseRow, senseCol), heading);
-            }
-            //trim any leading or closing spaces, close row paren
-            myString += rowString.trim() + ")";
-        }
-        //return string with close paren
-        return myString + ')';
+         firstdimension.add(seconddimension);
+         return firstdimension;
     }
 
     /** visChar iterates through the gridobjects located in a cell and returns all of their printchars
@@ -125,25 +105,25 @@ public class SensoryPacketSender
      * @param heading (which is not used)
      * @return a String that represents a list of items in the cell
      */
-    private String[] visChar(List<GridObject> cellContents, Point heading){
-        String[] visChar = new String[cellContents.size()];
-        String onevischar;
+    private JSONArray visChar(List<GridObject> cellContents, Point heading){
+        JSONArray thireddimension = new JSONArray();
+        Character onevischar;
         //if there are any gridobjects in the cell iterate and collect them
         if (cellContents != null && !cellContents.isEmpty()) {
             //iterate through cellContents, gather printchars or agent IDs
             for (int i = 0; i < cellContents.size(); i++) {
-                onevischar = String.valueOf(cellContents.get(i).printChar());
+                onevischar = cellContents.get(i).printChar();
                 if (onevischar.equals('A')){
-                    visChar[i] =  "\"" + ((GOBAgent)cellContents.get(i)).getAgentID() + "\" ";
+                    thireddimension.add(((GOBAgent)cellContents.get(i)).getAgentID());
                 }else {
-                    visChar[i] = "\"" + cellContents.get(i).printChar() + "\" ";
+                    thireddimension.add(cellContents.get(i).printChar());
                 }
             }
-            return visChar;
+            return thireddimension;
         }
         //otherwise return a space representing no gridobject
         else
-            return visChar;
+            return thireddimension;
     }
 
     
@@ -165,18 +145,18 @@ public class SensoryPacketSender
      * Post: String is returned in form: ("cont1" "cont2" "cont3" ...)
      *       where cont is the individual contents of the cell
      */
-     String[] groundContents(GOBAgent a, List<GridObject> thisCell) {
-         String[] groundcontents = new String[thisCell.size()];
+     JSONArray groundContents(GOBAgent a, List<GridObject> thisCell) {
+         JSONArray groundcontents = new JSONArray();
          String onecontents;
          if (thisCell != null && !thisCell.isEmpty()) {
             //iterate through the cell, gather the print-chars
             for (int i = 0; i < thisCell.size(); i++) {
                 onecontents = String.valueOf(thisCell.get(i).printChar());
                 //if the gob is an agent (and not the one passed in) get the agent id
-                if (((onecontents).equals('A') || (onecontents).equals('H')) && ((GOBAgent) thisCell.get(i) != a)) {
-                    groundcontents[i] = "\"" + ((GOBAgent)thisCell.get(i)).getAgentID() + "\" ";
+                if (((onecontents).equals('A') || (onecontents).equals('H')) && (thisCell.get(i) != a)) {
+                    groundcontents.add(((GOBAgent)thisCell.get(i)).getAgentID());
                 } else if (!onecontents.equals('A')  && !onecontents.equals('H')) {
-                    groundcontents[i] = "\"" +  onecontents + "\" ";
+                    groundcontents.add(onecontents);
                 }
             }
             return groundcontents;
