@@ -1,6 +1,8 @@
 package org.maeden.simulator;
 
 import java.awt.Point;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import org.json.simple.JSONArray;
 
@@ -21,7 +23,7 @@ public class SensoryPacketSender
     /** Constructor
      * @param myMap providing access to the Grid's contents
      */
-    public SensoryPacketSender(LinkedListGOB[][] myMap, GridObject food){
+     SensoryPacketSender(LinkedListGOB[][] myMap, GridObject food){
         this.myMap = myMap;
         this.xCols = myMap.length;
         this.yRows = myMap[0].length;
@@ -43,17 +45,16 @@ public class SensoryPacketSender
 
      void sendSensationsToAgent(GOBAgent a) {
         if (a.getNeedUpdate()) {
+            JSONArray inv = new JSONArray();
             JSONArray jsonArray = new JSONArray();
             Object[] setDate = new String[SIZE];
             setDate[0] = null; // Add state
             setDate[1] = Grid.relDirToPt(a.pos, new Point(a.dx(), a.dy()), food.pos); // 1. send smell
-            String inv = "(";
-            if (a.inventory().size() > 0){
-                for (GridObject gob : a.inventory()) {
-                    inv += "\"" + gob.printChar() + "\" ";
+            if (!a.inventory().isEmpty()){
+                for (int i = 0; i < a.inventory().size(); i++) {
+                    inv.add(a.inventory().get(i).printChar());
                 }
             }
-            inv = inv.trim() + ")";
             setDate[2] = inv;  // 2. send inventory
             setDate[3] = visField(a.pos, new Point(a.dx(), a.dy())); // 3. send visual info
             setDate[4] = groundContents(a, myMap[a.pos.x][a.pos.y]); // 4.send contents of current location
