@@ -32,12 +32,12 @@ public class Grid
     // window and grid variables
     private int xCols, yRows; // logical size of grid where yRows number of rows
     private int squareSize;   //size in pixels of one side of a cell
-    public int worldTime;     //the world time, a clock reflecting n * WORLD_CYCLE_TIME for n cycles through the run loop
+    int worldTime;     //the world time, a clock reflecting n * WORLD_CYCLE_TIME for n cycles through the run loop
     private ComSentence comMsg;  //
     private StringTokenizer msgTokenizer;
     private int talkDist = Integer.MAX_VALUE;  //distance in cells a message with volume talk will travel
     private int shoutDist = Integer.MAX_VALUE; //distance in cells a message with volume shout will travel
-    public boolean killGrid = false;     //grid will exit if true
+    boolean killGrid = false;     //grid will exit if true
     ///*maedengraphics
     private Insets iTrans;
     private boolean showDisplay = true;  //set true if a graphical display is desired, false otherwise
@@ -55,11 +55,11 @@ public class Grid
 
     // misc (possibly temporary) variables
     private GridObject food;                   //world goal
-    public static final int MAEDENPORT = 7237; //host server port number
+    static final int MAEDENPORT = 7237; //host server port number
     private ServerSocket gwServer;  // server-socket for listening for connection requests
 
-    public boolean EAT_FOOD_ENDS_IT = true; // control if eating food terminates sim (true) or increases energy (false)
-    public int WORLD_CYCLE_TIME = 200;      // replaces sleepTime to control wall-time length of simulation cycle
+    boolean EAT_FOOD_ENDS_IT = true; // control if eating food terminates sim (true) or increases energy (false)
+    int WORLD_CYCLE_TIME = 200;      // replaces sleepTime to control wall-time length of simulation cycle
 
     // Constructors
 
@@ -231,7 +231,7 @@ public class Grid
      * processAgentActions: for each of the agents, if they have actions
      * to be processed, get them and do whatever needs to be done.
      */
-    public void processAgentActions() {
+     void processAgentActions() {
         try {
             for (GOBAgent a : agents) {
                 a.getNextCommand();           //have current agent get next command from controller process
@@ -282,10 +282,13 @@ public class Grid
      * sendAgentSensations: for each agent that is ready for it as determined by getNeedUpdate(),
      * send their sensory information
      */
-    public void sendAgentSensations() {
+     void sendAgentSensations() {
         for (GOBAgent a : agents) {
-            if (a.getNeedUpdate())
-                sps.sendSensationsToAgent(a);
+            if (a.getNeedUpdate()){
+                a.send().println(sps.sendSensationsToAgent(a));
+            }
+
+               // a.send(); Todo: Are we going send everything from here or from the sendSensationsToAgent method?
         }
         //**** WARNING: review this logic -- since not all agents may receive sensory updates
         msgs.clear();              //once messages are sent, they don't need to be saved any longer
@@ -296,7 +299,6 @@ public class Grid
      * updateWorldTime: update the world time
      */
     public void updateWorldTime(){
-
         // update local book keeping: time, energy(?), ...
         worldTime++;
     }

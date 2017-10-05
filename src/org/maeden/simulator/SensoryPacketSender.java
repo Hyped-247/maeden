@@ -1,8 +1,6 @@
 package org.maeden.simulator;
 
 import java.awt.Point;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import org.json.simple.JSONArray;
 
@@ -43,14 +41,14 @@ public class SensoryPacketSender
      * @param a the agent to which the information should be sent
      */
 
-     void sendSensationsToAgent(GOBAgent a) {
+     JSONArray sendSensationsToAgent(GOBAgent a) {
+         JSONArray inv = new JSONArray();
+         JSONArray jsonArray = new JSONArray();
+         Object[] setDate = new Object[SIZE];
         if (a.getNeedUpdate()) {
-            JSONArray inv = new JSONArray();
-            JSONArray jsonArray = new JSONArray();
-            Object[] setDate = new String[SIZE];
             setDate[0] = null; // Add state
             setDate[1] = Grid.relDirToPt(a.pos, new Point(a.dx(), a.dy()), food.pos); // 1. send smell
-            if (!a.inventory().isEmpty()){
+            if (!a.inventory().isEmpty()) {
                 for (int i = 0; i < a.inventory().size(); i++) {
                     inv.add(a.inventory().get(i).printChar());
                 }
@@ -58,17 +56,17 @@ public class SensoryPacketSender
             setDate[2] = inv;  // 2. send inventory
             setDate[3] = visField(a.pos, new Point(a.dx(), a.dy())); // 3. send visual info
             setDate[4] = groundContents(a, myMap[a.pos.x][a.pos.y]); // 4.send contents of current location
-            setDate[5] = null; // sendAgentMessages(a) // 5. send any messages that may be heard by the agent
+            setDate[5] = new JSONArray(); // sendAgentMessages(a) // 5. send any messages that may be heard by the agent
             setDate[6] = a.energy(); // 6. send agent's energy
             setDate[7] = a.lastActionStatus(); // 7. send last-action status
             setDate[8] = a.simTime(); // 8. send world time
             for (int i = 0; i < SIZE; i++) {// This might be off by one
                 jsonArray.add(String.valueOf(setDate[i]));
             }
-            a.send().println(jsonArray); // send JsonArray
             a.setNeedUpdate(false);
         }
-    }
+         return jsonArray; // send JsonArray
+     }
 
     /**
      * visField: extract the local visual field to send to the agent controller
@@ -80,6 +78,24 @@ public class SensoryPacketSender
      * The row behind the agent is given first followed by its current row and progressing away from the agent
      * with characters left-to-right in visual field.
      */
+
+    String[][][] vis(Point aPt, Point heading) {
+        String[][][] vis = new String[1][7][5];
+        int senseRow, senseCol;
+        for (int relCol = 0; relCol < 7; relCol++) {
+            for (int relRow = 0; relRow < 5; relRow++) {
+                senseRow = aPt.x + relRow * heading.x + relCol * -heading.y;
+                senseCol = aPt.y + relRow * heading.y + relCol * heading.x;
+
+              //  vis[0][relCol][relRow] = showChar(mapRef(senseRow, senseCol), heading);
+            }
+
+        }
+        return new String[][][];
+    }
+
+
+
      String visField(Point aPt, Point heading){
         String myString = "(";
         int senseRow, senseCol;
@@ -152,23 +168,23 @@ public class SensoryPacketSender
      * Post: String is returned in form: ("cont1" "cont2" "cont3" ...)
      *       where cont is the individual contents of the cell
      */
-     String groundContents(GOBAgent a, List<GridObject> thisCell) {
-        if (thisCell != null && ! thisCell.isEmpty()) {
-            //encapsulate contents within parentheses
-            String ground = "(";
+     String[] groundContents(GOBAgent a, List<GridObject> thisCell) {
+         String[] groundcontents = new String[thisCell.size()];
+         String onecontents;
+         if (thisCell != null && ! thisCell.isEmpty()) {
             //iterate through the cell, gather the print-chars
-            for(GridObject gob : thisCell){
+            for (int i = 0; i < thisCell.size(); i++) {
+                onecontents = String.valueOf(thisCell.get(i).printChar());
                 //if the gob is an agent (and not the one passed in) get the agent id
-                if ((gob.printChar() == 'A' || gob.printChar() == 'H') && ((GOBAgent) gob != a)) {
-                    ground = ground + "\"" + ((GOBAgent)gob).getAgentID() + "\" ";   // \" specifies the string "
-                } else if (gob.printChar() != 'A' && gob.printChar() != 'H') {
-                    ground += "\"" +  gob.printChar() + "\" ";
+                if (((onecontents).equals('A') || (onecontents).equals('H')) && ((GOBAgent) thisCell.get(i) != a)) {
+                    groundcontents[i] = "\"" + ((GOBAgent)thisCell.get(i)).getAgentID() + "\" ";
+                } else if (!onecontents.equals('A')  && !onecontents.equals('H')) {
+                    groundcontents[i] = "\"" +  onecontents + "\" ";
                 }
             }
-            ground = ground.trim() + ')';  //trim any leading or ending spaces, close paren
-            return ground;
+            return groundcontents;
         }
-        return "()";
+        return groundcontents ;
     }
 
 }
