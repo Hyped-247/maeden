@@ -44,26 +44,21 @@ public class SensoryPacketSender
      JSONArray sendSensationsToAgent(GOBAgent a) {
          JSONArray inv = new JSONArray();
          JSONArray jsonArray = new JSONArray();
-         Object[] setDate = new Object[SIZE];
         if (a.getNeedUpdate()) {
-            setDate[0] = a.status(); // Add state
-            setDate[1] = Grid.relDirToPt(a.pos, new Point(a.dx(), a.dy()), food.pos); // 1. send smell
+            jsonArray.add(String.valueOf(a.status())); // 0. // Add state
+            jsonArray.add(String.valueOf(Grid.relDirToPt(a.pos, new Point(a.dx(), a.dy()), food.pos))); // 1. send smell
             if (!a.inventory().isEmpty()) {
                 for (int i = 0; i < a.inventory().size(); i++) {
                     inv.add(a.inventory().get(i).printChar());
                 }
             }
-            setDate[2] = inv;  // 2. send inventory
-            setDate[3] = visField(a.pos, new Point(a.dx(), a.dy())); // 3. send visual info
-            setDate[4] = groundContents(a, myMap[a.pos.x][a.pos.y]); // 4.send contents of current location
-            setDate[5] = new JSONArray(); // sendAgentMessages(a) // 5. send any messages that may be heard by the agent
-            setDate[6] = a.energy(); // 6. send agent's energy
-            setDate[7] = a.lastActionStatus(); // 7. send last-action status
-            setDate[8] = a.simTime(); // 8. send world time
-            for (int i = 0; i < SIZE; i++) {// This might be off by one
-                // Todo: You are turning everything to a String. This should not happen.
-                jsonArray.add(String.valueOf(setDate[i]));
-            }
+            jsonArray.add(inv); // 2. send inventory
+            jsonArray.add(visField(a.pos, new Point(a.dx(), a.dy()))); // 3. send visual info
+            jsonArray.add(groundContents(a, myMap[a.pos.x][a.pos.y]));  // 4.send contents of current location
+            jsonArray.add(new JSONArray()); // 5. send any messages that may be heard by the agent
+            jsonArray.add(a.energy()); // 6. send agent's energy
+            jsonArray.add(a.lastActionStatus()); // 7. send last-action status
+            jsonArray.add(a.simTime()); // 8. send world time
             a.setNeedUpdate(false);
         }
          return jsonArray; // send JsonArray
@@ -106,8 +101,8 @@ public class SensoryPacketSender
      * @return a String that represents a list of items in the cell
      */
     private JSONArray visChar(List<GridObject> cellContents, Point heading){
-        JSONArray thireddimension = new JSONArray();
         Character onevischar;
+        JSONArray thireddimension = new JSONArray();
         //if there are any gridobjects in the cell iterate and collect them
         if (cellContents != null && !cellContents.isEmpty()) {
             //iterate through cellContents, gather printchars or agent IDs
@@ -146,12 +141,12 @@ public class SensoryPacketSender
      *       where cont is the individual contents of the cell
      */
      JSONArray groundContents(GOBAgent a, List<GridObject> thisCell) {
+         Character onecontents;
          JSONArray groundcontents = new JSONArray();
-         String onecontents;
          if (thisCell != null && !thisCell.isEmpty()) {
             //iterate through the cell, gather the print-chars
             for (int i = 0; i < thisCell.size(); i++) {
-                onecontents = String.valueOf(thisCell.get(i).printChar());
+                onecontents = thisCell.get(i).printChar();
                 //if the gob is an agent (and not the one passed in) get the agent id
                 if (((onecontents).equals('A') || (onecontents).equals('H')) && (thisCell.get(i) != a)) {
                     groundcontents.add(((GOBAgent)thisCell.get(i)).getAgentID());
