@@ -65,15 +65,11 @@ public class SensoryPacketSender
      }
      private String getstatus(char s){
          String status = String.valueOf(s);
-         if ((status).equals("d")){
-             status = "DIE";
-         }
-         else if ((status).equals("e")){
-             status = "END";
-         }else if ((status).equals("s")){
-             status = "SUCCESS";
-         }else {
-             status = "CONTINUE";
+         switch (status){
+             case "d" : status = "DIE"; break;
+             case "e" : status = "END"; break;
+             case "s" : status = "SUCCESS"; break;
+             default: status = "CONTINUE";
          }
          return status;
      }
