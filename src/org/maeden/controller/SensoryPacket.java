@@ -2,6 +2,8 @@ package org.maeden.controller;
 
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -87,11 +89,9 @@ public class SensoryPacket
      private String[] getRawSenseDataFromGrid(BufferedReader gridIn) {
         String[] result = new String[Integer.parseInt(NUMLINES)];
         try {
-            JSONParser jsonParser = new JSONParser();
-            Object object = jsonParser.parse(gridIn.readLine()); // unpack the JsonArray.
-            JSONArray jsonArray = (JSONArray) object;
+            JSONArray jsonArray = parseinfo(gridIn.readLine()) // unpack the JsonArray.
             if (jsonArray.get(0).equals("CONTINUE")){ // Check status
-                jsonArray.remove(0); // Remove status to make 0. Smell. 
+                jsonArray.remove(0); // Remove status to make 0. Smell.
                 for (int i = 0; i < jsonArray.size(); i++) {
                     result[i] = jsonArray.get(i).toString(); // fill the the reasultArray with the information.
                 }
@@ -103,6 +103,16 @@ public class SensoryPacket
             e.getMessage();
         }
         return result;
+    }
+    JSONArray parseinfo(String info) throws Error{
+        try {
+            JSONParser jsonParser = new JSONParser();
+            Object object = jsonParser.parse(info);
+            JSONArray jsonArray = (JSONArray) object;
+            return jsonArray;
+
+        } catch (ParseException e) { e.printStackTrace(); }
+        return new JSONArray();
     }
 
     /**
