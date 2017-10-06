@@ -121,7 +121,7 @@ public class SensoryPacketSender
                 if (onevischar.equals('A')){
                     thireddimension.add(((GOBAgent)cellContents.get(i)).getAgentID());
                 }else {
-                    thireddimension.add(cellContents.get(i).printChar());
+                    thireddimension.add(String.valueOf(cellContents.get(i).printChar()));
                 }
             }
             return thireddimension;
@@ -161,7 +161,7 @@ public class SensoryPacketSender
                 if (((onecontents).equals('A') || (onecontents).equals('H')) && (thisCell.get(i) != a)) {
                     groundcontents.add(((GOBAgent)thisCell.get(i)).getAgentID());
                 } else if (!onecontents.equals('A')  && !onecontents.equals('H')) {
-                    groundcontents.add(onecontents);
+                    groundcontents.add(String.valueOf(onecontents));
                 }
             }
             return groundcontents;

@@ -90,12 +90,17 @@ public class SensoryPacket
             JSONParser jsonParser = new JSONParser();
             Object object = jsonParser.parse(gridIn.readLine()); // unpack the JsonArray.
             JSONArray jsonArray = (JSONArray) object;
-            for (int i = 0; i < jsonArray.size(); i++) {
-                result[i] = jsonArray.get(i).toString(); // fill the the reasultArray with the information.
+            if (jsonArray.get(0).equals("CONTINUE")){ // Check status
+                jsonArray.remove(0); // Remove status to make 0. Smell. 
+                for (int i = 0; i < jsonArray.size(); i++) {
+                    result[i] = jsonArray.get(i).toString(); // fill the the reasultArray with the information.
+                }
+            }else {
+                System.out.println("The final status: "+jsonArray.get(0));
+                System.exit(1);
             }
         } catch (Exception e){
             e.getMessage();
-            System.exit(1); // exist if all the elements in the JsonArray are null.
         }
         return result;
     }
@@ -110,13 +115,13 @@ public class SensoryPacket
             // smell
             this.smell = rawSenseData[0];
             // process inventory
-            this.inventory = new ArrayList<Character>();
+            this.inventory = new ArrayList<>();
             for(char item : rawSenseData[1].replaceAll("[\\(\"\\)\\s]+","").toCharArray())
                 this.inventory.add(item);
             // visual field
             processRetinalField(rawSenseData[2]);
             // ground contents
-            this.groundContents = new ArrayList<Character>();
+            this.groundContents = new ArrayList<>();
             for(char item : rawSenseData[3].replaceAll("[\\(\"\\)\\s]+","").toCharArray())
                 this.groundContents.add(item);
             // messages: *** Revisit this!! ***
