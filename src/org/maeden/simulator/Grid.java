@@ -287,8 +287,6 @@ public class Grid
             if (a.getNeedUpdate()){
                 a.send().println(sps.sendSensationsToAgent(a));
             }
-
-               // a.send(); Todo: Are we going send everything from here or from the sendSensationsToAgent method?
         }
         //**** WARNING: review this logic -- since not all agents may receive sensory updates
         msgs.clear();              //once messages are sent, they don't need to be saved any longer

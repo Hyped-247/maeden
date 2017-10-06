@@ -22,7 +22,7 @@ public class SensoryPacket
 {
 
     static final String NUMLINES = "8";
-
+    JSONArray addingdata;
     String status;
     String smell;
     List<Character> inventory;
@@ -93,7 +93,12 @@ public class SensoryPacket
             if (jsonArray.get(0).equals("CONTINUE")){ // Check status
                 jsonArray.remove(0); // Remove status to make 0. Smell.
                 for (int i = 0; i < jsonArray.size(); i++) {
-                    result[i] = jsonArray.get(i).toString(); // fill the the reasultArray with the information.
+                    if (i == 2 || i == 4) { // in the index of 2 or 4 we need to parse the JsonArray once more.
+                      //  result[i] = parseinfo(jsonArray.get(i));
+
+                    }else {
+                        result[i] = jsonArray.get(i).toString(); // fill the the reasultArray with the information.
+                    }
                 }
             }else {
                 System.out.println("The final status: "+jsonArray.get(0));
@@ -131,10 +136,15 @@ public class SensoryPacket
         try {
             // smell
             this.smell = rawSenseData[0];
+
             // process inventory
+
             this.inventory = new ArrayList<>();
-            for(char item : rawSenseData[1].replaceAll("[\\(\"\\)\\s]+","").toCharArray())
-                this.inventory.add(item);
+
+           // for(Character item :  addingdata)
+            //    this.inventory.add(item);
+
+
             // visual field
             processRetinalField(rawSenseData[2]);
             // ground contents
