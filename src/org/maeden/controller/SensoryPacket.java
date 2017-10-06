@@ -89,7 +89,7 @@ public class SensoryPacket
      private String[] getRawSenseDataFromGrid(BufferedReader gridIn) {
         String[] result = new String[Integer.parseInt(NUMLINES)];
         try {
-            JSONArray jsonArray = parseinfo(gridIn.readLine()) // unpack the JsonArray.
+            JSONArray jsonArray = parseinfo(gridIn.readLine()); // unpack the JsonArray.
             if (jsonArray.get(0).equals("CONTINUE")){ // Check status
                 jsonArray.remove(0); // Remove status to make 0. Smell.
                 for (int i = 0; i < jsonArray.size(); i++) {
@@ -104,15 +104,22 @@ public class SensoryPacket
         }
         return result;
     }
-    JSONArray parseinfo(String info) throws Error{
+
+    /**
+     * This method is going to unpack the JsonArray
+     * @param info It is a String of JsonArray.
+     * @return JSONArray
+     */
+    private JSONArray parseinfo(String info) {
         try {
             JSONParser jsonParser = new JSONParser();
             Object object = jsonParser.parse(info);
             JSONArray jsonArray = (JSONArray) object;
             return jsonArray;
-
-        } catch (ParseException e) { e.printStackTrace(); }
-        return new JSONArray();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return new JSONArray();
+        }
     }
 
     /**
