@@ -123,37 +123,25 @@ public class SensoryPacket
             JSONArray jsonArray = (JSONArray) object;
             objectLinkedList.addAll(jsonArray);
 
-            // 0, 1, 6, 7 and 8 Stings
-            // 4 and 2 Array of Stings
-            // 3
-            for (int i = 0; i < jsonArray.size(); i++) { // add all the elements.
-                LinkedList seconddemcopy =  new LinkedList();
-                JSONArray seconddem = (JSONArray) jsonArray.get(i);
-                if (i == 2 || i == 4){
-                    //  Array of Stings
-                    for (int j = 0; j < seconddem.size(); j++) {
-                        seconddemcopy.add(seconddem.get(j));
-                    }
-                    objectLinkedList.set(i,seconddemcopy);
-
-                }else if (i == 3){
-                    // Array of Array of Array of String
 
 
+            for (int i = 2; i <=4 ; i++) {
+                if (i != 3){
+                    JSONArray array = (JSONArray) jsonArray.get(i);
+                    LinkedList f =  new LinkedList();
+                    f.addAll(array);
+                    objectLinkedList.set(i, f);
                 }
             }
-
-
-            JSONArray firstdem = (JSONArray) jsonArray.get(2);
-            JSONArray seconddem = (JSONArray) jsonArray.get(2);
-            JSONArray thireddem = (JSONArray) jsonArray.get(2);
-
-
-
-            objectLinkedList.set(2, Collections.addAll(new LinkedList<>(), jsonArray.get(2))); // index 2
-            objectLinkedList.set(4, Collections.addAll(new LinkedList<>(), jsonArray.get(4)));// index 4
-            objectLinkedList.set(5, Collections.addAll(new LinkedList<>(), jsonArray.get(5)));// index 5
-            objectLinkedList.add(3, Collections.addAll(new LinkedList<>(), seconddem));// index 3
+            LinkedList s =  new LinkedList();
+            LinkedList t =  new LinkedList();
+            JSONArray second = ((JSONArray) jsonArray.get(3));
+            JSONArray thired = (JSONArray) second.get(0);
+            s.addAll(thired);
+            for (int i = 0; i < s.size(); i++) {
+                
+            }
+            objectLinkedList.set(3, t);
 
             return objectLinkedList;
         } catch (ParseException e) {
