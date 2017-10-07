@@ -4,11 +4,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Vector;
+import java.util.*;
 import java.io.BufferedReader;
-import java.util.StringTokenizer;
 
 /**
  * Simple class for representing 'pre-processed' sensory packets.
@@ -86,19 +83,22 @@ public class SensoryPacket
      * @return the array of String representing the raw (unprocessed) sensory data starting with smell
      */
     // change from protected to private
-     private String[] getRawSenseDataFromGrid(BufferedReader gridIn) {
-        String[] result = new String[Integer.parseInt(NUMLINES)];
+     private String[] getRawSenseDataFromGrid(BufferedReader gridIn) { // return JsonArray
+         JSONArray result = new JSONArray(); // fill in with all the data.
         try {
-            JSONArray jsonArray = parseinfo(gridIn.readLine()); // unpack the JsonArray.
+            LinkedList jsonArray = parse_info(gridIn.readLine()); // unpack the JsonArray.
             if (jsonArray.get(0).equals("CONTINUE")){ // Check status
                 jsonArray.remove(0); // Remove status to make 0. Smell.
                 for (int i = 0; i < jsonArray.size(); i++) {
                     if (i == 2 || i == 4) { // in the index of 2 or 4 we need to parse the JsonArray once more.
-                      //  result[i] = parseinfo(jsonArray.get(i));
+
+                      //  result.add(new LinkedList<String>(parseinfo(jsonArray.get(i).toString())));
 
                     }else {
-                        result[i] = jsonArray.get(i).toString(); // fill the the reasultArray with the information.
+
                     }
+
+
                 }
             }else {
                 System.out.println("The final status: "+jsonArray.get(0));
@@ -107,7 +107,7 @@ public class SensoryPacket
         } catch (Exception e){
             e.getMessage();
         }
-        return result;
+        return new String[3]; // Todo: Change this.
     }
 
     /**
@@ -115,15 +115,50 @@ public class SensoryPacket
      * @param info It is a String of JsonArray.
      * @return JSONArray
      */
-    private JSONArray parseinfo(String info) {
+    private LinkedList parse_info(String info) {
         try {
+            LinkedList<Object> objectLinkedList = new LinkedList<>();
             JSONParser jsonParser = new JSONParser();
             Object object = jsonParser.parse(info);
             JSONArray jsonArray = (JSONArray) object;
-            return jsonArray;
+            objectLinkedList.addAll(jsonArray);
+
+            // 0, 1, 6, 7 and 8 Stings
+            // 4 and 2 Array of Stings
+            // 3
+            for (int i = 0; i < jsonArray.size(); i++) { // add all the elements.
+                LinkedList seconddemcopy =  new LinkedList();
+                JSONArray seconddem = (JSONArray) jsonArray.get(i);
+                if (i == 2 || i == 4){
+                    //  Array of Stings
+                    for (int j = 0; j < seconddem.size(); j++) {
+                        seconddemcopy.add(seconddem.get(j));
+                    }
+                    objectLinkedList.set(i,seconddemcopy);
+
+                }else if (i == 3){
+                    // Array of Array of Array of String
+
+
+                }
+            }
+
+
+            JSONArray firstdem = (JSONArray) jsonArray.get(2);
+            JSONArray seconddem = (JSONArray) jsonArray.get(2);
+            JSONArray thireddem = (JSONArray) jsonArray.get(2);
+
+
+
+            objectLinkedList.set(2, Collections.addAll(new LinkedList<>(), jsonArray.get(2))); // index 2
+            objectLinkedList.set(4, Collections.addAll(new LinkedList<>(), jsonArray.get(4)));// index 4
+            objectLinkedList.set(5, Collections.addAll(new LinkedList<>(), jsonArray.get(5)));// index 5
+            objectLinkedList.add(3, Collections.addAll(new LinkedList<>(), seconddem));// index 3
+
+            return objectLinkedList;
         } catch (ParseException e) {
             e.printStackTrace();
-            return new JSONArray();
+            return new LinkedList();
         }
     }
 
@@ -132,7 +167,7 @@ public class SensoryPacket
      * @param rawSenseData the raw unprocessed sense data
      */
     // change from protected to private
-    private void initPreProcessedFields(String[] rawSenseData){
+    private void initPreProcessedFields(String[] rawSenseData){  // take a JsonArray
         try {
             // smell
             this.smell = rawSenseData[0];
@@ -169,7 +204,7 @@ public class SensoryPacket
      * @param info the visual sensory data string (structered as parenthesized list of lists) from server
      */
     // change from protected to private
-    private void processRetinalField(String info) {
+    private void processRetinalField(String info) {  // take a JsonArray
         boolean seeAgent;
         StringTokenizer visTokens = new StringTokenizer(info, "(", true);
         visTokens.nextToken();
