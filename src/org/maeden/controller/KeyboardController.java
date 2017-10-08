@@ -97,11 +97,11 @@ public class KeyboardController extends AbstractAgentController {
         // 5: get messages
         LinkedList messages = sp.getMessages(); //CHECKS MESSAGES ****CHANGE****
         // 6: energy
-        int energy = sp.getEnergy();
+        String energy = String.valueOf(sp.getEnergy());
         // 7: lastActionStatus
-        boolean lastActionStatus = sp.getLastActionStatus();
+        String lastActionStatus = String.valueOf(sp.getLastActionStatus());
         // 8: world time
-        int worldTime = sp.getWorldTime();
+        String worldTime = String.valueOf(sp.getWorldTime());
 
 
         // store or update according to the data just read. . . .

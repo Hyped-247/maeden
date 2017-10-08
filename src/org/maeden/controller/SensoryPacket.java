@@ -146,16 +146,14 @@ public class SensoryPacket
         try {
             // smell
             this.smell = rawSenseData.get(0).toString();
-
             // process inventory
             this.inventory = (LinkedList) rawSenseData.get(1);
             // visual field
-                 processRetinalField((LinkedList) rawSenseData.get(2));
-
+            processRetinalField((LinkedList) rawSenseData.get(2));
             // ground contents
-                this.groundContents = (LinkedList) rawSenseData.get(3);
+            this.groundContents = (LinkedList) rawSenseData.get(3);
             // messages: *** Revisit this!! ***
-                 this.messages = (LinkedList) rawSenseData.get(4);
+            this.messages = (LinkedList) rawSenseData.get(4);
             // energy
             this.energy = Integer.parseInt(rawSenseData.get(5).toString());
             // lastActionStatus
@@ -175,15 +173,12 @@ public class SensoryPacket
     // Todo: Start fixing this:
     private void processRetinalField(LinkedList info) {  // take a JsonArray
         boolean seeAgent;
-        StringTokenizer visTokens = new StringTokenizer(info, "(", true);
-        visTokens.nextToken();
+        info = info.get()
         for (int i = 6; i >= 0; i--) {              //iterate backwards so character printout displays correctly
-            visTokens.nextToken();
             for (int j=0; j <=4; j++) {             //iterate through the columns
                 seeAgent = false;
                 int agentID = 0;
-                visTokens.nextToken();
-                char[] visArray = visTokens.nextToken().replaceAll("[\\(\"\\)\\s]+","").toCharArray();
+                char[] visArray = info.g
                 for(int k=0; k < visArray.length; k++){
                     if (visArray[k] >= 0 && visArray[k] <= 9){  // we have a digit
                         if (seeAgent){ // we're already processing an agent ID with possibly more than one digit

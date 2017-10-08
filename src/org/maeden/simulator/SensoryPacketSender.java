@@ -45,7 +45,7 @@ public class SensoryPacketSender
          JSONArray inv = new JSONArray(); // inventory info
          JSONArray jsonArray = new JSONArray();
         if (a.getNeedUpdate()) {
-            jsonArray.add(getstatus(a.status())); // 0. // Add state
+            jsonArray.add(get_status(a.status())); // 0. // Add state
             jsonArray.add(String.valueOf(Grid.relDirToPt(a.pos, new Point(a.dx(), a.dy()), food.pos))); // 1. send smell
             if (!a.inventory().isEmpty()) {
                 for (int i = 0; i < a.inventory().size(); i++) {
@@ -63,7 +63,7 @@ public class SensoryPacketSender
         }
          return jsonArray; // send JsonArray
      }
-     private String getstatus(char s){
+     private String get_status(char s){
          String status = String.valueOf(s);
          switch (status){
              case "d" : status = "DIE"; break;
