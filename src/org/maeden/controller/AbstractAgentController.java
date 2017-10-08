@@ -1,6 +1,8 @@
 package org.maeden.controller;
 
 
+import java.util.LinkedList;
+
 /**
  * class AbstractAgentController: Provides a starting place for writing agent controllers
  * for use in the Maeden simulator.  
@@ -16,7 +18,7 @@ public abstract class AbstractAgentController {
 
     protected GridClient gc;
     protected SensoryPacket currentSensePacket;
-    protected String[] currentRawSenseData;
+    protected LinkedList currentRawSenseData; // change to from Strings to LinkedList
 
     /**
      * AbstractAgentController constructor takes a string and an int
@@ -52,8 +54,8 @@ public abstract class AbstractAgentController {
      * which can be unpacked at will
      */
     public void getSensoryInfo() {
-	currentSensePacket = gc.getSensoryPacket();
-	currentRawSenseData = currentSensePacket.getRawSenseData();
+	  currentSensePacket = gc.getSensoryPacket();
+      currentRawSenseData = currentSensePacket.getRawSenseData();
     }
 
 }

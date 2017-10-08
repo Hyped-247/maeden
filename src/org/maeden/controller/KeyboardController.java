@@ -5,10 +5,8 @@ import java.io.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.net.*;
+import java.util.*;
 import java.util.List;
-import java.util.StringTokenizer;
-import java.util.ArrayList;
-import java.util.Vector;
 
 import org.maeden.simulator.GOBAgent;
 import org.maeden.simulator.GOBDoor;
@@ -25,6 +23,7 @@ import org.maeden.simulator.GOBRock;
 import org.maeden.simulator.GOBWall;
 import org.maeden.simulator.GridDisplay;
 import org.maeden.simulator.GridObject;
+import sun.plugin.javascript.navig4.Link;
 
 /**
  * class KeyboardController: Provides a Keyboard user-interface to a Grid world simulation.
@@ -83,25 +82,27 @@ public class KeyboardController extends AbstractAgentController {
      * processSensoryInfo via the currentSensePacket or currentRawSenseData
      */
     public void processSensoryInfo() {
+
         SensoryPacket sp = currentSensePacket;
+
         //sp.printVisualArray();
-        String[] rawSenses = sp.getRawSenseData();
         // 1: get the smell info
-        String heading = rawSenses[0];
+        String heading = sp.getSmell();
         // 2: get the inventory
-        String inventory = rawSenses[1];
+        List<Character> inventory = sp.getInventory();
         // 3: get the currently visible objects info the visField list for display
         processRetinalField(sp.getVisualArray());
         // 4: get ground contents
-        String ground = rawSenses[3];
+        List<Character> ground = sp.getGroundContents();
         // 5: get messages
-        String messages = rawSenses[4]; //CHECKS MESSAGES ****CHANGE****
+        LinkedList messages = sp.getMessages(); //CHECKS MESSAGES ****CHANGE****
         // 6: energy
-        String energy = rawSenses[5];
+        int energy = sp.getEnergy();
         // 7: lastActionStatus
-        String lastActionStatus = rawSenses[6];
+        boolean lastActionStatus = sp.getLastActionStatus();
         // 8: world time
-        String worldTime = rawSenses[7];
+        int worldTime = sp.getWorldTime();
+
 
         // store or update according to the data just read. . . .
         gd.updateGDObjects(visField);

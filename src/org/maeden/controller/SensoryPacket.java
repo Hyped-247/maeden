@@ -19,18 +19,17 @@ public class SensoryPacket
 {
 
     static final String NUMLINES = "8";
-    JSONArray addingdata;
     String status;
     String smell;
     List<Character> inventory;
     //List<Character>[][] visualArray = (List<Character>[][])new ArrayList[7][5];
     ArrayList<ArrayList<Vector<String>>> visualArray;
     List<Character> groundContents;
-    String messages;
+    LinkedList messages;
     int energy;
     boolean lastActionStatus;
     int worldTime;
-    String[] rawSenseData;
+    LinkedList rawSenseData;
 
     /**
      * constructor that reads the raw data from the server via the provided BufferedReader
@@ -53,7 +52,7 @@ public class SensoryPacket
      */
     public SensoryPacket(String inptStatus, String inptSmell, List<Character> inptInventory,
                          ArrayList<ArrayList<Vector<String>>> inptVisualArray,
-                         List<Character> inptGroundContents, String inptMessages,
+                         List<Character> inptGroundContents, LinkedList inptMessages,
                          Integer inptEnergy, Boolean inptLastActionStatus, Integer inptWorldTime) {
         status = inptStatus;
         smell = inptSmell;
@@ -83,37 +82,25 @@ public class SensoryPacket
      * @return the array of String representing the raw (unprocessed) sensory data starting with smell
      */
     // change from protected to private
-     private String[] getRawSenseDataFromGrid(BufferedReader gridIn) { // return JsonArray
-         JSONArray result = new JSONArray(); // fill in with all the data.
-        try {
-            LinkedList jsonArray = parse_info(gridIn.readLine()); // unpack the JsonArray.
-            if (jsonArray.get(0).equals("CONTINUE")){ // Check status
-                jsonArray.remove(0); // Remove status to make 0. Smell.
-                for (int i = 0; i < jsonArray.size(); i++) {
-                    if (i == 2 || i == 4) { // in the index of 2 or 4 we need to parse the JsonArray once more.
-
-                      //  result.add(new LinkedList<String>(parseinfo(jsonArray.get(i).toString())));
-
-                    }else {
-
-                    }
-
-
-                }
+     private LinkedList getRawSenseDataFromGrid(BufferedReader gridIn) { // return JsonArray
+         try {
+             LinkedList jsonArray = parse_info(gridIn.readLine()); // unpack the JsonArray.
+             if (jsonArray.get(0).equals("CONTINUE")){// Check status
+                 jsonArray.remove(0); // Remove status to make the index 0 = Smell.
+                 return jsonArray;
             }else {
-                System.out.println("The final status: "+jsonArray.get(0));
-                System.exit(1);
-            }
-        } catch (Exception e){
-            e.getMessage();
-        }
-        return new String[3]; // Todo: Change this.
+                 System.out.println("The final status: "+jsonArray.get(0));
+                 jsonArray.remove(0); // Remove status to make the index 0 = Smell.
+                 System.exit(1);
+             }
+            } catch (Exception e){ e.getMessage(); }
+         return new LinkedList();
     }
 
     /**
      * This method is going to unpack the JsonArray
      * @param info It is a String of JsonArray.
-     * @return JSONArray
+     * @return LinkedList
      */
     private LinkedList parse_info(String info) {
         try {
@@ -121,28 +108,28 @@ public class SensoryPacket
             JSONParser jsonParser = new JSONParser();
             Object object = jsonParser.parse(info);
             JSONArray jsonArray = (JSONArray) object;
-            objectLinkedList.addAll(jsonArray);
-
-
-
-            for (int i = 2; i <=4 ; i++) {
+            objectLinkedList.addAll(jsonArray); // add all the element from Json to LinkedList
+            for (int i = 2; i <=5 ; i++) { // in case of 2 and 4 create a new Linked list that has all the elements
                 if (i != 3){
                     JSONArray array = (JSONArray) jsonArray.get(i);
                     LinkedList f =  new LinkedList();
                     f.addAll(array);
                     objectLinkedList.set(i, f);
+                }else { // in case 3 create LinkedList within a LinkedList within a LinkedList that has all the data.
+                    JSONArray f = ((JSONArray) jsonArray.get(3)); // first dimension JsonArray
+                    JSONArray s = (JSONArray) f.get(0); // second dimension JsonArray
+                    LinkedList result =  new LinkedList();
+                    LinkedList final_result =  new LinkedList();
+                    for (int k = 0; k < s.size(); k++) {
+                        result.add(new LinkedList<>());
+                        JSONArray final_Array = (JSONArray) s.get(k); // third dimension JsonArray
+                        LinkedList holder = (LinkedList) result.get(k); // get LinkedList just added.
+                        holder.addAll(final_Array); // add all elements from third dimension JsonArray to a LinkedList.
+                    }
+                    final_result.add(result);
+                    objectLinkedList.set(3, final_result);
                 }
             }
-            LinkedList s =  new LinkedList();
-            LinkedList t =  new LinkedList();
-            JSONArray second = ((JSONArray) jsonArray.get(3));
-            JSONArray thired = (JSONArray) second.get(0);
-            s.addAll(thired);
-            for (int i = 0; i < s.size(); i++) {
-                
-            }
-            objectLinkedList.set(3, t);
-
             return objectLinkedList;
         } catch (ParseException e) {
             e.printStackTrace();
@@ -155,33 +142,26 @@ public class SensoryPacket
      * @param rawSenseData the raw unprocessed sense data
      */
     // change from protected to private
-    private void initPreProcessedFields(String[] rawSenseData){  // take a JsonArray
+    private void initPreProcessedFields(LinkedList rawSenseData){  // take a JsonArray
         try {
             // smell
-            this.smell = rawSenseData[0];
+            this.smell = rawSenseData.get(0).toString();
 
             // process inventory
-
-            this.inventory = new ArrayList<>();
-
-           // for(Character item :  addingdata)
-            //    this.inventory.add(item);
-
-
+            this.inventory = (LinkedList) rawSenseData.get(1);
             // visual field
-            processRetinalField(rawSenseData[2]);
+                 processRetinalField((LinkedList) rawSenseData.get(2));
+
             // ground contents
-            this.groundContents = new ArrayList<>();
-            for(char item : rawSenseData[3].replaceAll("[\\(\"\\)\\s]+","").toCharArray())
-                this.groundContents.add(item);
+                this.groundContents = (LinkedList) rawSenseData.get(3);
             // messages: *** Revisit this!! ***
-            this.messages = rawSenseData[4];
+                 this.messages = (LinkedList) rawSenseData.get(4);
             // energy
-            this.energy = Integer.parseInt(rawSenseData[5]);
+            this.energy = Integer.parseInt(rawSenseData.get(5).toString());
             // lastActionStatus
-            this.lastActionStatus = rawSenseData[6].equalsIgnoreCase("ok");
+            this.lastActionStatus = rawSenseData.get(6).equals("ok".toLowerCase());
             // world Time
-            this.worldTime = Integer.parseInt(rawSenseData[7]);
+            this.worldTime = Integer.parseInt(rawSenseData.get(7).toString());
         }catch (NullPointerException e){ e.getMessage(); }
 
     }
@@ -192,7 +172,8 @@ public class SensoryPacket
      * @param info the visual sensory data string (structered as parenthesized list of lists) from server
      */
     // change from protected to private
-    private void processRetinalField(String info) {  // take a JsonArray
+    // Todo: Start fixing this:
+    private void processRetinalField(LinkedList info) {  // take a JsonArray
         boolean seeAgent;
         StringTokenizer visTokens = new StringTokenizer(info, "(", true);
         visTokens.nextToken();
@@ -255,7 +236,7 @@ public class SensoryPacket
      * NOTE: This may be out of sync with the Grid server and may need to be a list or something else.
      * @return the messages shouted or talked by other agents in the environment
      */
-    public String getMessages(){ return messages; }
+    public LinkedList getMessages(){ return messages; }
 
     /**
      * @return the remaining energy as indicated by the sensory information from the server
@@ -275,7 +256,7 @@ public class SensoryPacket
     /**
      * @return the array of Strings representing the raw sensory data
      */
-    public String[] getRawSenseData(){return rawSenseData; }
+    public LinkedList getRawSenseData(){return rawSenseData; }
 
     /**
      * Renders the visual information as semi-formatted string, making no allowances for
