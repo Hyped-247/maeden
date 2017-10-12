@@ -89,12 +89,12 @@ public class SensoryPacketSender
         int counter=0;
         for (int relRow = -1; relRow <= 5; relRow++) {
             firstdimension.add(new JSONArray());
-            JSONArray seconddimension = (JSONArray) firstdimension.get(++relRow);
+            JSONArray seconddimension = (JSONArray) firstdimension.get(counter++);
             for (int relCol = -2; relCol <= 2; relCol++) {
                 senseRow = aPt.x + relRow * heading.x + relCol * -heading.y;
                 senseCol = aPt.y + relRow * heading.y + relCol * heading.x;
-                JSONArray thirddimension = (JSONArray) seconddimension.get(counter++);
-                thirddimension.add(visChar(mapRef(senseRow, senseCol), heading));
+                // JSONArray thirddimension = (JSONArray) seconddimension.get(counter++);
+                seconddimension.add(visChar(mapRef(senseRow, senseCol), heading));
             }
         }
          return firstdimension;
