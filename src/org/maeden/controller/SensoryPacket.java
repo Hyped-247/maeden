@@ -148,7 +148,7 @@ public class SensoryPacket
             // process inventory
             this.inventory = (List<Character>) rawSenseData.get(1);
             // visual field
-            processRetinalField((LinkedList) rawSenseData.get(2));
+        //    processRetinalField((LinkedList) rawSenseData.get(2));
             // ground contents
             this.groundContents = (List<Character>) rawSenseData.get(3);
             // messages: *** Revisit this!! ***

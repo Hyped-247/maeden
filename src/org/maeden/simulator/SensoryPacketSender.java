@@ -54,7 +54,7 @@ public class SensoryPacketSender
             jsonArray.add(inv); // 2. send inventory
             jsonArray.add(visField(a.pos, new Point(a.dx(), a.dy()))); // 3. send visual info
             jsonArray.add(groundContents(a, myMap[a.pos.x][a.pos.y]));  // 4.send contents of current location
-            jsonArray.add(new JSONArray()); // 5. send any messages that may be heard by the agent //Todo: Fix this.
+            jsonArray.add(new JSONArray()); // 5. send any messages that may be heard by the agent
             jsonArray.add(String.valueOf(a.energy())); // 6. send agent's energy // Todo: This has to be a String
             jsonArray.add(String.valueOf(a.lastActionStatus())); // 7. send last-action status
             jsonArray.add(String.valueOf(a.simTime())); // 8. send world time // Todo: This has to be a String
@@ -63,15 +63,14 @@ public class SensoryPacketSender
          return jsonArray; // send JsonArray
      }
      private String get_status(char s){
-         String status = String.valueOf(s);
-         switch (status){
-             case "d" : status = "DIE"; break;
-             case "e" : status = "END"; break;
-             case "s" : status = "SUCCESS"; break;
-             default: status = "CONTINUE";
+         switch (s){
+             case 'd' : return "DIE";
+             case 'e' : return "END";
+             case 's' : return "SUCCESS";
+             default: return"CONTINUE";
          }
-         return status;
      }
+
 
     /**
      * visField: extract the local visual field to send to the agent controller
@@ -86,16 +85,18 @@ public class SensoryPacketSender
 
     private JSONArray visField(Point aPt, Point heading) {
         JSONArray firstdimension = new JSONArray();
-        JSONArray seconddimension = new JSONArray();
         int senseRow, senseCol;
-        for (int relRow = -1; relRow < 5; relRow++) {
-            for (int relCol = -2; relCol < 2; relCol++) {
+        int counter=0;
+        for (int relRow = -1; relRow <= 5; relRow++) {
+            firstdimension.add(new JSONArray());
+            JSONArray seconddimension = (JSONArray) firstdimension.get(++relRow);
+            for (int relCol = -2; relCol <= 2; relCol++) {
                 senseRow = aPt.x + relRow * heading.x + relCol * -heading.y;
                 senseCol = aPt.y + relRow * heading.y + relCol * heading.x;
-                seconddimension.add(visChar(mapRef(senseRow, senseCol), heading));
+                JSONArray thirddimension = (JSONArray) seconddimension.get(counter++);
+                thirddimension.add(visChar(mapRef(senseRow, senseCol), heading));
             }
         }
-         firstdimension.add(seconddimension);
          return firstdimension;
     }
 
@@ -130,7 +131,6 @@ public class SensoryPacketSender
             return thireddimension;
     }
 
-    
     /**
      * mapRef: safe map reference checking for out-of-bounds indexing
      * @param x the horizontal index
