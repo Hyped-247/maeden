@@ -149,10 +149,12 @@ public class SensoryPacket
     protected void processRetinalField(JSONArray info) {
         boolean seeAgent;
         for (int i = 6; i >= 0; i--) {              //iterate backwards so character printout displays correctly
+            JSONArray f = (JSONArray) info.get(i);
             for (int j=0; j <=4; j++) {             //iterate through the columns
+                JSONArray s = (JSONArray) f.get(j);
                 seeAgent = false;
                 int agentID = 0;
-                char[] visArray = new char[10];
+                char[] visArray = String.valueOf(s).toCharArray();
                 for(int k=0; k < visArray.length; k++){
                     if (visArray[k] >= 0 && visArray[k] <= 9){  // we have a digit
                         if (seeAgent){ // we're already processing an agent ID with possibly more than one digit
