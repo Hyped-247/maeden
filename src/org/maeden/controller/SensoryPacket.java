@@ -25,7 +25,7 @@ public class SensoryPacket
     //List<Character>[][] visualArray = (List<Character>[][])new ArrayList[7][5];
     ArrayList<ArrayList<Vector<String>>> visualArray;
     List<Character> groundContents;
-    LinkedList messages;
+    JSONArray messages;
     int energy;
     boolean lastActionStatus;
     int worldTime;
@@ -52,7 +52,7 @@ public class SensoryPacket
      */
     public SensoryPacket(String inptStatus, String inptSmell, List<Character> inptInventory,
                          ArrayList<ArrayList<Vector<String>>> inptVisualArray,
-                         List<Character> inptGroundContents, LinkedList inptMessages,
+                         List<Character> inptGroundContents, JSONArray inptMessages,
                          Integer inptEnergy, Boolean inptLastActionStatus, Integer inptWorldTime) {
         status = inptStatus;
         smell = inptSmell;
@@ -128,7 +128,7 @@ public class SensoryPacket
             // ground contents
             this.groundContents = (List<Character>) rawSenseData.get(3);
             // messages: *** Revisit this!! ***
-            this.messages = (LinkedList) rawSenseData.get(4);
+            this.messages = (JSONArray) rawSenseData.get(4);
             // energy
             this.energy = Integer.parseInt(rawSenseData.get(5).toString());
             // lastActionStatus
@@ -144,8 +144,6 @@ public class SensoryPacket
      * and convert it to a 2D array of Vectors of Strings.
      * @param info the visual sensory data string (structered as parenthesized list of lists) from server
      */
-    // change from protected to private
-    // Todo: Start fixing this:
     protected void processRetinalField(JSONArray info) {
         boolean seeAgent;
         for (int i = 6; i >= 0; i--) {              //iterate backwards so character printout displays correctly
@@ -207,7 +205,7 @@ public class SensoryPacket
      * NOTE: This may be out of sync with the Grid server and may need to be a list or something else.
      * @return the messages shouted or talked by other agents in the environment
      */
-    public LinkedList getMessages(){ return messages; }
+    public JSONArray getMessages(){ return messages; }
 
     /**
      * @return the remaining energy as indicated by the sensory information from the server
