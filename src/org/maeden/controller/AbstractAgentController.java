@@ -1,7 +1,6 @@
 package org.maeden.controller;
 
-
-import java.util.LinkedList;
+import org.json.simple.JSONArray;
 
 /**
  * class AbstractAgentController: Provides a starting place for writing agent controllers
@@ -18,7 +17,7 @@ public abstract class AbstractAgentController {
 
     protected GridClient gc;
     protected SensoryPacket currentSensePacket;
-    protected LinkedList currentRawSenseData; // change to from Strings to LinkedList
+    protected JSONArray currentRawSenseData; // change to from Strings to LinkedList
 
     /**
      * AbstractAgentController constructor takes a string and an int

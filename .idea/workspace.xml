@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="81b82e89-7f6b-4c41-a403-5631a81e4ba1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/maeden/controller/AbstractAgentController.java" afterPath="$PROJECT_DIR$/src/org/maeden/controller/AbstractAgentController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/maeden/controller/SensoryPacket.java" afterPath="$PROJECT_DIR$/src/org/maeden/controller/SensoryPacket.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/maeden/simulator/SensoryPacketSender.java" afterPath="$PROJECT_DIR$/src/org/maeden/simulator/SensoryPacketSender.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -26,55 +27,49 @@
       <file leaf-file-name="KeyboardController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/maeden/controller/KeyboardController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2">
+            <state relative-caret-position="-129">
               <caret line="75" column="0" lean-forward="true" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Grid.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/maeden/simulator/Grid.java">
+      <file leaf-file-name="GridClient.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/maeden/controller/GridClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="647" column="0" lean-forward="false" selection-start-line="647" selection-start-column="0" selection-end-line="647" selection-end-column="0" />
+            <state relative-caret-position="405">
+              <caret line="64" column="44" lean-forward="false" selection-start-line="64" selection-start-column="31" selection-end-line="64" selection-end-column="44" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SensoryPacketSender.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/org/maeden/simulator/SensoryPacketSender.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="67">
-              <caret line="85" column="30" lean-forward="false" selection-start-line="85" selection-start-column="22" selection-end-line="85" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SensoryPacket.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SensoryPacket.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/maeden/controller/SensoryPacket.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1">
-              <caret line="135" column="19" lean-forward="false" selection-start-line="135" selection-start-column="19" selection-end-line="135" selection-end-column="19" />
+            <state relative-caret-position="491">
+              <caret line="103" column="32" lean-forward="false" selection-start-line="103" selection-start-column="22" selection-end-line="103" selection-end-column="32" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GOBAgent.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/maeden/simulator/GOBAgent.java">
+      <file leaf-file-name="SensoryPacketSender.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/maeden/simulator/SensoryPacketSender.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="205" column="0" lean-forward="false" selection-start-line="205" selection-start-column="0" selection-end-line="205" selection-end-column="0" />
-              <folding>
-                <element signature="e#6660#6661#0" expanded="true" />
-                <element signature="e#6687#6688#0" expanded="true" />
-                <element signature="e#7542#7543#0" expanded="true" />
-                <element signature="e#7567#7568#0" expanded="true" />
-                <element signature="e#7643#7644#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="1336">
+              <caret line="84" column="54" lean-forward="false" selection-start-line="84" selection-start-column="54" selection-end-line="84" selection-end-column="54" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RandomAgent.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/maeden/controller/RandomAgent.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="702">
+              <caret line="28" column="62" lean-forward="false" selection-start-line="28" selection-start-column="49" selection-end-line="28" selection-end-column="62" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -105,6 +100,7 @@
       <find>energy</find>
       <find>Vector</find>
       <find>agentID</find>
+      <find>initPreProcessedFields</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -127,10 +123,10 @@
         <option value="$PROJECT_DIR$/src/json-simple-1.1.1.jar!/org/json/simple/JSONArray.class" />
         <option value="$PROJECT_DIR$/src/json-simple-1.1.1.jar!/org/json/simple/parser/Yylex.class" />
         <option value="$PROJECT_DIR$/src/org/maeden/simulator/Grid.java" />
-        <option value="$PROJECT_DIR$/src/org/maeden/controller/AbstractAgentController.java" />
         <option value="$PROJECT_DIR$/src/org/maeden/controller/KeyboardController.java" />
-        <option value="$PROJECT_DIR$/src/org/maeden/controller/SensoryPacket.java" />
         <option value="$PROJECT_DIR$/src/org/maeden/simulator/SensoryPacketSender.java" />
+        <option value="$PROJECT_DIR$/src/org/maeden/controller/AbstractAgentController.java" />
+        <option value="$PROJECT_DIR$/src/org/maeden/controller/SensoryPacket.java" />
       </list>
     </option>
   </component>
@@ -704,7 +700,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="70008000" />
+    <option name="totallyTimeSpent" value="70739000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
@@ -716,7 +712,7 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3699187" sideWeight="0.5106496" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.038617887" sideWeight="0.5106496" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.07012195" sideWeight="0.4914803" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.4978701" order="10" side_tool="false" content_ui="tabs" />
@@ -729,7 +725,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3699187" sideWeight="0.48935038" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.038617887" sideWeight="0.48935038" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -768,19 +764,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/org/maeden/controller/SensoryPacket.java</url>
-          <line>132</line>
+          <line>108</line>
           <properties />
           <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/org/maeden/controller/SensoryPacket.java</url>
-          <line>180</line>
-          <properties />
-          <option name="timeStamp" value="38" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/org/maeden/controller/SensoryPacket.java</url>
-          <line>146</line>
+          <line>122</line>
           <properties />
           <option name="timeStamp" value="39" />
         </line-breakpoint>
@@ -792,7 +782,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/org/maeden/simulator/SensoryPacketSender.java</url>
-          <line>99</line>
+          <line>97</line>
           <properties />
           <option name="timeStamp" value="51" />
         </line-breakpoint>
@@ -1105,32 +1095,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/maeden/controller/AbstractAgentController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="20" column="75" lean-forward="false" selection-start-line="20" selection-start-column="75" selection-end-line="20" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/maeden/controller/GridClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="883">
-          <caret line="64" column="44" lean-forward="false" selection-start-line="64" selection-start-column="31" selection-end-line="64" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/src/json-simple-1.1.1.jar!/org/json/simple/JSONArray.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
           <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/maeden/controller/RandomAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="28" column="62" lean-forward="false" selection-start-line="28" selection-start-column="49" selection-end-line="28" selection-end-column="62" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1147,10 +1115,10 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1507850475000" expanded="true" signature="68709:68751" ph="..." />
-            <marker date="1507850475000" expanded="true" signature="68709:68769" ph="..." />
-            <marker date="1507850475000" expanded="true" signature="68709:68782" ph="..." />
-            <marker date="1507850475000" expanded="true" signature="68709:68797" ph="..." />
+            <marker date="1507851220000" expanded="true" signature="68470:68512" ph="..." />
+            <marker date="1507851220000" expanded="true" signature="68470:68530" ph="..." />
+            <marker date="1507851220000" expanded="true" signature="68470:68543" ph="..." />
+            <marker date="1507851220000" expanded="true" signature="68470:68558" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1163,17 +1131,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/maeden/controller/SensoryPacket.java">
+    <entry file="file://$PROJECT_DIR$/src/org/maeden/controller/AbstractAgentController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1">
-          <caret line="135" column="19" lean-forward="false" selection-start-line="135" selection-start-column="19" selection-end-line="135" selection-end-column="19" />
+        <state relative-caret-position="-721">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/maeden/simulator/Grid.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
+        <state relative-caret-position="11006">
           <caret line="647" column="0" lean-forward="false" selection-start-line="647" selection-start-column="0" selection-end-line="647" selection-end-column="0" />
           <folding />
         </state>
@@ -1181,7 +1149,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/maeden/controller/KeyboardController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2">
+        <state relative-caret-position="-129">
           <caret line="75" column="0" lean-forward="true" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
           <folding />
         </state>
@@ -1201,10 +1169,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/maeden/controller/GridClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="64" column="44" lean-forward="false" selection-start-line="64" selection-start-column="31" selection-end-line="64" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/maeden/controller/RandomAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="702">
+          <caret line="28" column="62" lean-forward="false" selection-start-line="28" selection-start-column="49" selection-end-line="28" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/maeden/simulator/SensoryPacketSender.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="67">
-          <caret line="85" column="30" lean-forward="false" selection-start-line="85" selection-start-column="22" selection-end-line="85" selection-end-column="30" />
+        <state relative-caret-position="1336">
+          <caret line="84" column="54" lean-forward="false" selection-start-line="84" selection-start-column="54" selection-end-line="84" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/maeden/controller/SensoryPacket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="491">
+          <caret line="103" column="32" lean-forward="false" selection-start-line="103" selection-start-column="22" selection-end-line="103" selection-end-column="32" />
           <folding />
         </state>
       </provider>

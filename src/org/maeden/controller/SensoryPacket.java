@@ -29,7 +29,7 @@ public class SensoryPacket
     int energy;
     boolean lastActionStatus;
     int worldTime;
-    LinkedList rawSenseData;
+    JSONArray rawSenseData;
 
     /**
      * constructor that reads the raw data from the server via the provided BufferedReader
@@ -82,19 +82,18 @@ public class SensoryPacket
      * @return the array of String representing the raw (unprocessed) sensory data starting with smell
      */
     // change from protected to private
-     private LinkedList getRawSenseDataFromGrid(BufferedReader gridIn) { // return JsonArray
+     private JSONArray getRawSenseDataFromGrid(BufferedReader gridIn) { // return JsonArray
          try {
-             LinkedList jsonArray = parse_info(gridIn.readLine()); // unpack the JsonArray.
+             JSONArray jsonArray = parse_info(gridIn.readLine()); // unpack the JsonArray.
              if (jsonArray.get(0).equals("CONTINUE")){// Check status
                  jsonArray.remove(0); // Remove status to make the index 0 = Smell.
                  return jsonArray;
             }else {
                  System.out.println("The final status: "+jsonArray.get(0));
-                 jsonArray.remove(0); // Remove status to make the index 0 = Smell.
                  System.exit(1);
              }
             } catch (Exception e){ e.getMessage(); }
-         return new LinkedList();
+         return new JSONArray();
     }
 
     /**
@@ -102,38 +101,15 @@ public class SensoryPacket
      * @param info It is a String of JsonArray.
      * @return LinkedList
      */
-    private LinkedList parse_info(String info) {
+    private JSONArray parse_info(String info) {
         try {
-            LinkedList<Object> objectLinkedList = new LinkedList<>();
             JSONParser jsonParser = new JSONParser();
             Object object = jsonParser.parse(info);
             JSONArray jsonArray = (JSONArray) object;
-            objectLinkedList.addAll(jsonArray); // add all the element from Json to LinkedList
-            for (int i = 2; i <=5 ; i++) { // in case of 2 and 4 create a new Linked list that has all the elements
-                if (i != 3){
-                    JSONArray array = (JSONArray) jsonArray.get(i);
-                    LinkedList f =  new LinkedList();
-                    f.addAll(array);
-                    objectLinkedList.set(i, f);
-                }else { // in case 3 create LinkedList within a LinkedList within a LinkedList that has all the data.
-                    JSONArray f = ((JSONArray) jsonArray.get(3)); // first dimension JsonArray
-                    JSONArray s = (JSONArray) f.get(0); // second dimension JsonArray
-                    LinkedList result =  new LinkedList();
-                    LinkedList final_result =  new LinkedList();
-                    for (int k = 0; k < s.size(); k++) {
-                        result.add(new LinkedList<>());
-                        JSONArray final_Array = (JSONArray) s.get(k); // third dimension JsonArray
-                        LinkedList holder = (LinkedList) result.get(k); // get LinkedList just added.
-                        holder.addAll(final_Array); // add all elements from third dimension JsonArray to a LinkedList.
-                    }
-                    final_result.add(result);
-                    objectLinkedList.set(3, final_result);
-                }
-            }
-            return objectLinkedList;
+            return jsonArray;
         } catch (ParseException e) {
             e.printStackTrace();
-            return new LinkedList();
+            return new JSONArray();
         }
     }
     /**
@@ -141,14 +117,14 @@ public class SensoryPacket
      * @param rawSenseData the raw unprocessed sense data
      */
     // change from protected to private
-    private void initPreProcessedFields(LinkedList rawSenseData){  // take a JsonArray
+    private void initPreProcessedFields(JSONArray rawSenseData){  // take a JsonArray
         try {
             // smell
             this.smell = rawSenseData.get(0).toString();
             // process inventory
             this.inventory = (List<Character>) rawSenseData.get(1);
             // visual field
-        //    processRetinalField((LinkedList) rawSenseData.get(2));
+            processRetinalField((JSONArray) rawSenseData.get(2));
             // ground contents
             this.groundContents = (List<Character>) rawSenseData.get(3);
             // messages: *** Revisit this!! ***
@@ -170,22 +146,20 @@ public class SensoryPacket
      */
     // change from protected to private
     // Todo: Start fixing this:
-    private void processRetinalField(LinkedList info) {  // take a JsonArray
+    protected void processRetinalField(JSONArray info) {
         boolean seeAgent;
-        info = (LinkedList) info.get(0);
-        LinkedList s = (LinkedList) info.get(3);
         for (int i = 6; i >= 0; i--) {              //iterate backwards so character printout displays correctly
             for (int j=0; j <=4; j++) {             //iterate through the columns
                 seeAgent = false;
                 int agentID = 0;
-                LinkedList t = (LinkedList) s.get(i);
-                Integer id_num = Integer.parseInt((String) t.get(j));
-                    if (id_num >= 0 && id_num <= 9) {  // we have a digit
-                        if (seeAgent) { // we're already processing an agent ID with possibly more than one digit
-                            agentID = 10 * agentID + (id_num - '0');
+                char[] visArray = new char[10];
+                for(int k=0; k < visArray.length; k++){
+                    if (visArray[k] >= 0 && visArray[k] <= 9){  // we have a digit
+                        if (seeAgent){ // we're already processing an agent ID with possibly more than one digit
+                            agentID = 10*agentID + (visArray[k] - '0');
                         } else {       // starting to process an agent ID
                             seeAgent = true;
-                            agentID = (id_num - '0');
+                            agentID = (visArray[k] - '0');
                         }
                     } else {                                    // we have a non-agent ID
                         if (seeAgent){ // just finished processing agent ID -- record it
@@ -193,8 +167,9 @@ public class SensoryPacket
                             seeAgent = false;
                             agentID = 0;
                         }
-                        visualArray.get(i).get(j).add(String.valueOf(t.get(j))); // add the non-agent item
+                        visualArray.get(i).get(j).add(String.valueOf(visArray[k])); // add the non-agent item
                     }
+                }
             }
         }
     }
@@ -250,7 +225,7 @@ public class SensoryPacket
     /**
      * @return the array of Strings representing the raw sensory data
      */
-    public LinkedList getRawSenseData(){return rawSenseData; }
+    public JSONArray getRawSenseData(){return rawSenseData; }
 
     /**
      * Renders the visual information as semi-formatted string, making no allowances for
