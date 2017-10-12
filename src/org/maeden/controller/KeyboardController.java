@@ -85,17 +85,16 @@ public class KeyboardController extends AbstractAgentController {
 
         SensoryPacket sp = currentSensePacket;
 
-        //sp.printVisualArray();
         // 1: get the smell info
         String heading = sp.getSmell();
         // 2: get the inventory
-        List<Character> inventory = sp.getInventory();
+        String inventory = String.valueOf(sp.getInventory());
         // 3: get the currently visible objects info the visField list for display
         processRetinalField(sp.getVisualArray());
         // 4: get ground contents
-        List<Character> ground = sp.getGroundContents();
+        String ground = String.valueOf(sp.getGroundContents());
         // 5: get messages
-        LinkedList messages = sp.getMessages(); //CHECKS MESSAGES ****CHANGE****
+        String messages = String.valueOf(sp.getMessages()); //CHECKS MESSAGES ****CHANGE****
         // 6: energy
         String energy = String.valueOf(sp.getEnergy());
         // 7: lastActionStatus
@@ -105,8 +104,8 @@ public class KeyboardController extends AbstractAgentController {
 
 
         // store or update according to the data just read. . . .
-       // gd.updateGDObjects(visField);
-       // db.updateLabels(heading, inventory, ground, messages, energy, lastActionStatus, worldTime);
+        gd.updateGDObjects(visField);
+        db.updateLabels(heading, inventory, ground, messages, energy, lastActionStatus, worldTime);
     }
 
     /** processRetinalField: populate the display grid from the pre-processed visual field of a SensoryPacket
