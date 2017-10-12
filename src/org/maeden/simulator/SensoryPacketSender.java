@@ -13,7 +13,6 @@ import org.json.simple.JSONArray;
  */
 public class SensoryPacketSender
 {
-    private final int SIZE = 8;
     private int xCols, yRows;
     private LinkedListGOB[][] myMap;                 //holds gridobjects
     private GridObject food;

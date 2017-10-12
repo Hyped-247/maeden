@@ -136,7 +136,6 @@ public class SensoryPacket
             return new LinkedList();
         }
     }
-
     /**
      * Perform any pre-processing, especially on the visual data
      * @param rawSenseData the raw unprocessed sense data
@@ -147,11 +146,11 @@ public class SensoryPacket
             // smell
             this.smell = rawSenseData.get(0).toString();
             // process inventory
-            this.inventory = (LinkedList) rawSenseData.get(1);
+            this.inventory = (List<Character>) rawSenseData.get(1);
             // visual field
             processRetinalField((LinkedList) rawSenseData.get(2));
             // ground contents
-            this.groundContents = (LinkedList) rawSenseData.get(3);
+            this.groundContents = (List<Character>) rawSenseData.get(3);
             // messages: *** Revisit this!! ***
             this.messages = (LinkedList) rawSenseData.get(4);
             // energy
@@ -173,19 +172,20 @@ public class SensoryPacket
     // Todo: Start fixing this:
     private void processRetinalField(LinkedList info) {  // take a JsonArray
         boolean seeAgent;
-        info = info.get()
+        info = (LinkedList) info.get(0);
+        LinkedList s = (LinkedList) info.get(3);
         for (int i = 6; i >= 0; i--) {              //iterate backwards so character printout displays correctly
             for (int j=0; j <=4; j++) {             //iterate through the columns
                 seeAgent = false;
                 int agentID = 0;
-                char[] visArray = info.g
-                for(int k=0; k < visArray.length; k++){
-                    if (visArray[k] >= 0 && visArray[k] <= 9){  // we have a digit
-                        if (seeAgent){ // we're already processing an agent ID with possibly more than one digit
-                            agentID = 10*agentID + (visArray[k] - '0');
+                LinkedList t = (LinkedList) s.get(i);
+                Integer id_num = Integer.parseInt((String) t.get(j));
+                    if (id_num >= 0 && id_num <= 9) {  // we have a digit
+                        if (seeAgent) { // we're already processing an agent ID with possibly more than one digit
+                            agentID = 10 * agentID + (id_num - '0');
                         } else {       // starting to process an agent ID
                             seeAgent = true;
-                            agentID = (visArray[k] - '0');
+                            agentID = (id_num - '0');
                         }
                     } else {                                    // we have a non-agent ID
                         if (seeAgent){ // just finished processing agent ID -- record it
@@ -193,9 +193,8 @@ public class SensoryPacket
                             seeAgent = false;
                             agentID = 0;
                         }
-                        visualArray.get(i).get(j).add(String.valueOf(visArray[k])); // add the non-agent item
+                        visualArray.get(i).get(j).add(String.valueOf(t.get(j))); // add the non-agent item
                     }
-                }
             }
         }
     }

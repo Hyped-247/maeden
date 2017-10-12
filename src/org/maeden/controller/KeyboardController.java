@@ -105,8 +105,8 @@ public class KeyboardController extends AbstractAgentController {
 
 
         // store or update according to the data just read. . . .
-        gd.updateGDObjects(visField);
-        db.updateLabels(heading, inventory, ground, messages, energy, lastActionStatus, worldTime);
+       // gd.updateGDObjects(visField);
+       // db.updateLabels(heading, inventory, ground, messages, energy, lastActionStatus, worldTime);
     }
 
     /** processRetinalField: populate the display grid from the pre-processed visual field of a SensoryPacket
