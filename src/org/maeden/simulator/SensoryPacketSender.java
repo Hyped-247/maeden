@@ -48,7 +48,7 @@ public class SensoryPacketSender
             jsonArray.add(String.valueOf(Grid.relDirToPt(a.pos, new Point(a.dx(), a.dy()), food.pos))); // 1. send smell
             if (!a.inventory().isEmpty()) {
                 for (int i = 0; i < a.inventory().size(); i++) {
-                    inv.add(a.inventory().get(i).printChar());
+                    inv.add(String.valueOf(a.inventory().get(i).printChar()));
                 }
             }
             jsonArray.add(inv); // 2. send inventory
@@ -67,7 +67,7 @@ public class SensoryPacketSender
              case 'd' : return "DIE";
              case 'e' : return "END";
              case 's' : return "SUCCESS";
-             default: return"CONTINUE";
+             default: return "CONTINUE";
          }
      }
 

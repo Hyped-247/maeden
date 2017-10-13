@@ -4,6 +4,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.IOException;
 import java.util.*;
 import java.io.BufferedReader;
 
@@ -84,33 +85,19 @@ public class SensoryPacket
     // change from protected to private
      private JSONArray getRawSenseDataFromGrid(BufferedReader gridIn) { // return JsonArray
          try {
-             JSONArray jsonArray = parse_info(gridIn.readLine()); // unpack the JsonArray.
-             if (jsonArray.get(0).equals("CONTINUE")){// Check status
-                 jsonArray.remove(0); // Remove status to make the index 0 = Smell.
-                 return jsonArray;
-            }else {
-                 System.out.println("The final status: "+jsonArray.get(0));
+             JSONParser jsonParser = new JSONParser();
+             Object object = jsonParser.parse(gridIn.readLine());
+             JSONArray jsonArray = (JSONArray) object;
+             jsonArray.remove(0); // take this out because we want 0 to be smell.
+             return jsonArray;
+         } catch (Exception e) { // if throw exception then it means that it ended, sucecced, or died.
+             try {
+                 System.out.println("The final status: " + String.valueOf(gridIn.readLine()));
                  System.exit(1);
-             }
-            } catch (Exception e){ e.getMessage(); }
-         return new JSONArray();
-    }
+             }catch (Exception e1){ e1.getMessage(); }
+             return new JSONArray();
+         }
 
-    /**
-     * This method is going to unpack the JsonArray
-     * @param info It is a String of JsonArray.
-     * @return LinkedList
-     */
-    private JSONArray parse_info(String info) {
-        try {
-            JSONParser jsonParser = new JSONParser();
-            Object object = jsonParser.parse(info);
-            JSONArray jsonArray = (JSONArray) object;
-            return jsonArray;
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return new JSONArray();
-        }
     }
     /**
      * Perform any pre-processing, especially on the visual data
@@ -147,12 +134,12 @@ public class SensoryPacket
     protected void processRetinalField(JSONArray info) {
         boolean seeAgent;
         for (int i = 6; i >= 0; i--) {              //iterate backwards so character printout displays correctly
-            JSONArray f = (JSONArray) info.get(i);
+            JSONArray f = (JSONArray) info.get(i); // first demintion
             for (int j=0; j <=4; j++) {             //iterate through the columns
-                JSONArray s = (JSONArray) f.get(j);
+                JSONArray s = (JSONArray) f.get(j); // second demintion
                 seeAgent = false;
                 int agentID = 0;
-                char[] visArray = String.valueOf(s).toCharArray();
+                char[] visArray = String.valueOf(s).toCharArray();// third demintion
                 for(int k=0; k < visArray.length; k++){
                     if (visArray[k] >= 0 && visArray[k] <= 9){  // we have a digit
                         if (seeAgent){ // we're already processing an agent ID with possibly more than one digit
