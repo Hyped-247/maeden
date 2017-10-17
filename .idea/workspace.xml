@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="81b82e89-7f6b-4c41-a403-5631a81e4ba1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/maeden/simulator/Grid.java" afterPath="$PROJECT_DIR$/src/org/maeden/simulator/Grid.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/maeden/controller/KeyboardController.java" afterPath="$PROJECT_DIR$/src/org/maeden/controller/KeyboardController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/maeden/simulator/SensoryPacketSender.java" afterPath="$PROJECT_DIR$/src/org/maeden/simulator/SensoryPacketSender.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -24,11 +25,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="KeyboardController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="KeyboardController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/maeden/controller/KeyboardController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="57">
-              <caret line="85" column="45" lean-forward="false" selection-start-line="85" selection-start-column="45" selection-end-line="85" selection-end-column="45" />
+            <state relative-caret-position="3198">
+              <caret line="264" column="33" lean-forward="true" selection-start-line="264" selection-start-column="33" selection-end-line="264" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -37,8 +38,51 @@
       <file leaf-file-name="Grid.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/maeden/simulator/Grid.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3125">
-              <caret line="255" column="46" lean-forward="false" selection-start-line="255" selection-start-column="46" selection-end-line="255" selection-end-column="67" />
+            <state relative-caret-position="4067">
+              <caret line="652" column="43" lean-forward="true" selection-start-line="652" selection-start-column="43" selection-end-line="652" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AbstractAgentController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/maeden/controller/AbstractAgentController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="368">
+              <caret line="56" column="25" lean-forward="false" selection-start-line="56" selection-start-column="6" selection-end-line="56" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GridClient.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/maeden/controller/GridClient.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1159">
+              <caret line="64" column="0" lean-forward="false" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SensoryPacketSender.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/maeden/simulator/SensoryPacketSender.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="608">
+              <caret line="66" column="6" lean-forward="false" selection-start-line="66" selection-start-column="6" selection-end-line="66" selection-end-column="6" />
+              <folding>
+                <element signature="e#1410#1411#0" expanded="true" />
+                <element signature="e#1495#1496#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.SensoryMotor" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/doc/README.SensoryMotor">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="392">
+              <caret line="77" column="2" lean-forward="false" selection-start-line="77" selection-start-column="2" selection-end-line="77" selection-end-column="2" />
               <folding />
             </state>
           </provider>
@@ -47,31 +91,21 @@
       <file leaf-file-name="SensoryPacket.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/maeden/controller/SensoryPacket.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-382">
-              <caret line="53" column="24" lean-forward="false" selection-start-line="53" selection-start-column="11" selection-end-line="53" selection-end-column="24" />
+            <state relative-caret-position="149">
+              <caret line="135" column="16" lean-forward="false" selection-start-line="135" selection-start-column="16" selection-end-line="135" selection-end-column="16" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RandomAgent.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/maeden/controller/RandomAgent.java">
+      <file leaf-file-name="GOBAgent.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/maeden/simulator/GOBAgent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="28" column="62" lean-forward="false" selection-start-line="28" selection-start-column="49" selection-end-line="28" selection-end-column="62" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SensoryPacketSender.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/org/maeden/simulator/SensoryPacketSender.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="88" column="54" lean-forward="true" selection-start-line="88" selection-start-column="54" selection-end-line="88" selection-end-column="54" />
+            <state relative-caret-position="3424">
+              <caret line="319" column="65" lean-forward="false" selection-start-line="319" selection-start-column="64" selection-end-line="319" selection-end-column="65" />
               <folding>
-                <element signature="e#1410#1411#0" expanded="true" />
-                <element signature="e#1495#1496#0" expanded="true" />
+                <element signature="e#7618#7619#0" expanded="true" />
+                <element signature="e#7643#7644#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -81,21 +115,14 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>printChar</find>
-      <find>sps</find>
-      <find>sendAgentSensations</find>
-      <find>sendAgentMessages</find>
-      <find>vis</find>
       <find>myMap</find>
       <find>showChar</find>
       <find>die</find>
       <find>inventory</find>
       <find>getRawSenseDataFromGrid</find>
       <find>processRetinalField</find>
-      <find>getSensoryInfo</find>
       <find>processSensoryInfo</find>
       <find>currentRawSenseData</find>
-      <find>updateLabels</find>
       <find>energy</find>
       <find>Vector</find>
       <find>agentID</find>
@@ -109,6 +136,15 @@
       <find>cleanclose</find>
       <find>processAge</find>
       <find>processAgentActions</find>
+      <find>worldtime</find>
+      <find>50</find>
+      <find>new GOB</find>
+      <find>new Go</find>
+      <find>process</find>
+      <find>getSensoryInfo</find>
+      <find>new GOBAg</find>
+      <find>updateLabels</find>
+      <find>processr</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -131,10 +167,10 @@
         <option value="$PROJECT_DIR$/src/json-simple-1.1.1.jar!/org/json/simple/parser/JSONParser.class" />
         <option value="$PROJECT_DIR$/src/json-simple-1.1.1.jar!/org/json/simple/JSONArray.class" />
         <option value="$PROJECT_DIR$/src/json-simple-1.1.1.jar!/org/json/simple/parser/Yylex.class" />
-        <option value="$PROJECT_DIR$/src/org/maeden/controller/SensoryPacket.java" />
         <option value="$PROJECT_DIR$/src/org/maeden/controller/AbstractAgentController.java" />
-        <option value="$PROJECT_DIR$/src/org/maeden/controller/KeyboardController.java" />
         <option value="$PROJECT_DIR$/src/org/maeden/simulator/Grid.java" />
+        <option value="$PROJECT_DIR$/src/org/maeden/controller/KeyboardController.java" />
+        <option value="$PROJECT_DIR$/src/org/maeden/controller/SensoryPacket.java" />
         <option value="$PROJECT_DIR$/src/org/maeden/simulator/SensoryPacketSender.java" />
       </list>
     </option>
@@ -233,6 +269,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="controller" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="maeden" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="maeden" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="doc" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -640,12 +690,12 @@
       <workItem from="1507848386053" duration="21000" />
       <workItem from="1507908894633" duration="17000" />
       <workItem from="1508260917303" duration="1047000" />
-      <workItem from="1508262001470" duration="1332000" />
+      <workItem from="1508262001470" duration="4328000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="79281000" />
+    <option name="totallyTimeSpent" value="82277000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -658,7 +708,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.05284553" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.032670453" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12926136" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.11077236" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18174475" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -702,13 +752,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/org/maeden/simulator/GOBAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5238">
-          <caret line="194" column="0" lean-forward="false" selection-start-line="194" selection-start-column="0" selection-end-line="194" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/doc/README.SensoryMotor">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1539">
@@ -1004,13 +1047,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/doc/README.SensoryMotor">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="77" column="2" lean-forward="false" selection-start-line="77" selection-start-column="2" selection-end-line="77" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/src/json-simple-1.1.1.jar!/org/json/simple/JSONArray.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
@@ -1018,71 +1054,91 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/maeden/simulator/GOBAgent.java">
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/src.zip!/java/util/ArrayList.java" />
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/rt.jar!/sun/misc/Unsafe.class" />
+    <entry file="file://$PROJECT_DIR$/src/org/maeden/controller/RandomAgent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="205" column="0" lean-forward="false" selection-start-line="205" selection-start-column="0" selection-end-line="205" selection-end-column="0" />
+        <state relative-caret-position="212">
+          <caret line="28" column="62" lean-forward="false" selection-start-line="28" selection-start-column="49" selection-end-line="28" selection-end-column="62" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/src.zip!/java/util/ArrayList.java" />
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/rt.jar!/sun/misc/Unsafe.class" />
-    <entry file="file://$PROJECT_DIR$/src/org/maeden/controller/GridClient.java">
+    <entry file="file://$PROJECT_DIR$/doc/README.SensoryMotor">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="611">
-          <caret line="64" column="0" lean-forward="false" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+        <state relative-caret-position="392">
+          <caret line="77" column="2" lean-forward="false" selection-start-line="77" selection-start-column="2" selection-end-line="77" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/maeden/simulator/GOBAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3424">
+          <caret line="319" column="65" lean-forward="false" selection-start-line="319" selection-start-column="64" selection-end-line="319" selection-end-column="65" />
+          <folding>
+            <element signature="e#7618#7619#0" expanded="true" />
+            <element signature="e#7643#7644#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/maeden/simulator/Grid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4067">
+          <caret line="652" column="43" lean-forward="true" selection-start-line="652" selection-start-column="43" selection-end-line="652" selection-end-column="43" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/maeden/controller/AbstractAgentController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
+        <state relative-caret-position="368">
           <caret line="56" column="25" lean-forward="false" selection-start-line="56" selection-start-column="6" selection-end-line="56" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/maeden/simulator/Grid.java">
+    <entry file="file://$PROJECT_DIR$/src/org/maeden/simulator/GOBWall.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3125">
-          <caret line="255" column="46" lean-forward="false" selection-start-line="255" selection-start-column="46" selection-end-line="255" selection-end-column="67" />
+        <state relative-caret-position="178">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/maeden/controller/RandomAgent.java">
+    <entry file="file://$PROJECT_DIR$/src/org/maeden/controller/GridClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="28" column="62" lean-forward="false" selection-start-line="28" selection-start-column="49" selection-end-line="28" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/maeden/controller/KeyboardController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="85" column="45" lean-forward="false" selection-start-line="85" selection-start-column="45" selection-end-line="85" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/maeden/controller/SensoryPacket.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-382">
-          <caret line="53" column="24" lean-forward="false" selection-start-line="53" selection-start-column="11" selection-end-line="53" selection-end-column="24" />
+        <state relative-caret-position="1159">
+          <caret line="64" column="0" lean-forward="false" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/maeden/simulator/SensoryPacketSender.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="88" column="54" lean-forward="true" selection-start-line="88" selection-start-column="54" selection-end-line="88" selection-end-column="54" />
+        <state relative-caret-position="608">
+          <caret line="66" column="6" lean-forward="false" selection-start-line="66" selection-start-column="6" selection-end-line="66" selection-end-column="6" />
           <folding>
             <element signature="e#1410#1411#0" expanded="true" />
             <element signature="e#1495#1496#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/maeden/controller/SensoryPacket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="149">
+          <caret line="135" column="16" lean-forward="false" selection-start-line="135" selection-start-column="16" selection-end-line="135" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/maeden/controller/KeyboardController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3198">
+          <caret line="264" column="33" lean-forward="true" selection-start-line="264" selection-start-column="33" selection-end-line="264" selection-end-column="33" />
+          <folding />
         </state>
       </provider>
     </entry>

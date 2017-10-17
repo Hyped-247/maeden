@@ -65,16 +65,6 @@ public class SensoryPacketSender
         }
          return jsonArray; // send JsonArray
      }
-     /*
-     private String get_status(char s){
-         switch (s){
-             case 'd' : return "DIE";
-             case 'e' : return "END";
-             case 's' : return "SUCCESS";
-             default: return "CONTINUE";
-         }
-     }
-    */
 
     /**
      * visField: extract the local visual field to send to the agent controller

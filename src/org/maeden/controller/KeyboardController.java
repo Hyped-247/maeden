@@ -8,6 +8,7 @@ import java.net.*;
 import java.util.*;
 import java.util.List;
 
+import org.json.simple.JSONArray;
 import org.maeden.simulator.GOBAgent;
 import org.maeden.simulator.GOBDoor;
 import org.maeden.simulator.GOBFood;
@@ -84,6 +85,7 @@ public class KeyboardController extends AbstractAgentController {
     public void processSensoryInfo() {
 
         SensoryPacket sp = currentSensePacket;
+        // JSONArray data = sp.getRawSenseData();
 
         // 1: get the smell info
         String heading = sp.getSmell();
