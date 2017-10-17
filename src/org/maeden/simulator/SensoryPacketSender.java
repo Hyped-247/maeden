@@ -39,12 +39,15 @@ public class SensoryPacketSender
      * LINE8: last action's result status (ok or fail)
      * @param a the agent to which the information should be sent
      */
-
      JSONArray sendSensationsToAgent(GOBAgent a) {
+         return (sendSensationsToAgent(a, "CONTINUE"));
+     }
+
+     JSONArray sendSensationsToAgent(GOBAgent a, String status) {
          JSONArray inv = new JSONArray(); // inventory info
          JSONArray jsonArray = new JSONArray();
         if (a.getNeedUpdate()) {
-            jsonArray.add(get_status(a.status())); // 0. // Add state
+            jsonArray.add(status); // 0. // Add state
             jsonArray.add(String.valueOf(Grid.relDirToPt(a.pos, new Point(a.dx(), a.dy()), food.pos))); // 1. send smell
             if (!a.inventory().isEmpty()) {
                 for (int i = 0; i < a.inventory().size(); i++) {
@@ -62,6 +65,7 @@ public class SensoryPacketSender
         }
          return jsonArray; // send JsonArray
      }
+     /*
      private String get_status(char s){
          switch (s){
              case 'd' : return "DIE";
@@ -70,7 +74,7 @@ public class SensoryPacketSender
              default: return "CONTINUE";
          }
      }
-
+    */
 
     /**
      * visField: extract the local visual field to send to the agent controller

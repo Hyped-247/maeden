@@ -266,9 +266,11 @@ public class Grid
                 case 'd':                       // die: agent died from lack of energy or quicksand
                     while ( a.inventory().size() > 0 )
                         a.drop("drop");         // drop all items from inventory before removing agent
+                    sps.sendSensationsToAgent(a, "DIE");
                     a.cleanDie(); i.remove();
                     break;
-                case 's': killGrid = true;      // success: agent found the food, end the simulation
+                case 's': sps.sendSensationsToAgent(a, "SUCCESS");
+                    killGrid = true;      // success: agent found the food, end the simulation
                     break;
                 case 'c':                       // continuing: agent is alive, hasn't found the food
                 default:
@@ -548,7 +550,8 @@ public class Grid
         if( agents != null && !agents.isEmpty() ) {  //if there are agents on the grid still
             for(GOBAgent g : agents) {  //iterate through and close their connections
                 g.printstats();
-                g.send().println("End");              //Other agent got food, simulation ended
+                //g.send().println("End");              //Other agent got food, simulation ended
+                sps.sendSensationsToAgent(g, "END"); // group2 Change.
                 g.cleanDie();
             }
             agents.clear();
