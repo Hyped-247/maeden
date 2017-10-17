@@ -91,13 +91,9 @@ public class SensoryPacket
              jsonArray.remove(0); // take this out because we want 0 to be smell.
              return jsonArray;
          } catch (Exception e) { // if throw exception then it means that it ended, sucecced, or died.
-             try {
-                 System.out.println("The final status: " + String.valueOf(gridIn.readLine()));
                  System.exit(1);
-             }catch (Exception e1){ e1.getMessage(); }
              return new JSONArray();
          }
-
     }
     /**
      * Perform any pre-processing, especially on the visual data
