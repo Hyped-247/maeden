@@ -39,7 +39,7 @@ public class SensoryPacketSender
      * LINE8: last action's result status (ok or fail)
      * @param a the agent to which the information should be sent
      */
-     JSONArray sendSensationsToAgent(GOBAgent a) {
+     JSONArray sendSensationsToAgent(GOBAgent a) { // group2 : Dem part.
          return (sendSensationsToAgent(a, "CONTINUE"));
      }
 

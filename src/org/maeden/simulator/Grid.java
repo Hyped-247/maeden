@@ -239,16 +239,21 @@ public class Grid
             }
         } catch (Exception e) { System.out.println("Failed reading the next command: " + e);}
         try {
+            int numberRequest = 0; // group2 : Ben part.
             for (GOBAgent a : agents) {    //process and perform each agent's action
                 //Process the action only if there is a next command
                 if(a.nextCommand() != null)
                     {
                         a.processAction(a.nextCommand());
                         a.setNeedUpdate(true);
+                        numberRequest++;  // group2 : Ben part.
                     }
                 else {
                     a.decrEnergyWait(); // otherwise, deduct the wait cost from agent's energy
                 }
+            }
+            if (numberRequest > 1){
+                Collections.shuffle(agents);  // group2 : Ben part.
             }
         } catch (Exception e) {
             System.out.println("Failed processing the next command just read");
