@@ -78,18 +78,18 @@ public class SensoryPacketSender
      */
     // Todo: Come back and make the code look cleaner.
     private JSONArray visField(Point aPt, Point heading) {
-        JSONArray fd = new JSONArray(); // firstdimension
+        JSONArray firstdimension = new JSONArray(); // firstdimension
         int senseRow, senseCol, counter=0;
-        for (int relRow = -1; relRow <= 5; relRow++) {
-            fd.add(new JSONArray());
-            JSONArray sd = (JSONArray) fd.get(counter++); // seconddimesion
+        for (int relRow = 5; relRow >= -1; relRow--) {
+            firstdimension.add(new JSONArray());
+            JSONArray seconddimesion = (JSONArray) firstdimension.get(counter++); // seconddimesion
             for (int relCol = -2; relCol <= 2; relCol++) {
                 senseRow = aPt.x + relRow * heading.x + relCol * -heading.y;
                 senseCol = aPt.y + relRow * heading.y + relCol * heading.x;
-                sd.add(visChar(mapRef(senseRow, senseCol), heading));
+                seconddimesion.add(visChar(mapRef(senseRow, senseCol), heading));
             }
         }
-         return fd;
+         return firstdimension;
     }
 
     /** visChar iterates through the gridobjects located in a cell and returns all of their printchars

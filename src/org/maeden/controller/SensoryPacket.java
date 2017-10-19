@@ -91,7 +91,9 @@ public class SensoryPacket
              jsonArray.remove(0); // take this out because we want 0 to be smell.
              return jsonArray;
          } catch (Exception e) { // if throw exception then it means that it ended, sucecced, or died.
-                 System.exit(1);
+             // Todo: Create if statements to show why the world ended.
+
+             System.exit(1);
              return new JSONArray();
          }
     }
