@@ -231,6 +231,7 @@ public class Grid
      * processAgentActions: for each of the agents, if they have actions
      * to be processed, get them and do whatever needs to be done.
      */
+    // todo: This is were the infomation is going to be unpack.
      void processAgentActions() {
         try {
             for (GOBAgent a : agents) {

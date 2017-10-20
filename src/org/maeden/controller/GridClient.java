@@ -62,8 +62,7 @@ public class GridClient {
      * @return the latest sensory information from the Grid server wrapped in a SensoryPacket
      */
     public SensoryPacket getSensoryPacket() {
-        SensoryPacket sp = new SensoryPacket(gridIn);
-        return sp;
+       return new SensoryPacket(gridIn);
     }
 
 
@@ -74,7 +73,9 @@ public class GridClient {
      *
      * *NOTE: GOBAgent only looks at first letter of command string unless talk or shout is sent*
      */
+    // todo: create a JsonObject.
     public void effectorSend(String command) {
+        // todo: pass it in gridOut.println(JsonObject);
         gridOut.println(command);
     }
         
