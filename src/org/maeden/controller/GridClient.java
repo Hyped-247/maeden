@@ -1,6 +1,7 @@
 package org.maeden.controller;
 
 
+import org.json.simple.JSONObject;
 import java.io.*;
 import java.net.*;
 
@@ -18,6 +19,7 @@ public class GridClient {
     protected BufferedReader gridIn;                    // bufferedreader for input reading
     protected String myID;
     public static final int MAEDENPORT = 7237;       // uses port 1237 on localhost
+
 
 
     /**
@@ -73,11 +75,9 @@ public class GridClient {
      *
      * *NOTE: GOBAgent only looks at first letter of command string unless talk or shout is sent*
      */
-    // todo: create a JsonObject.
     public void effectorSend(String command) {
-        // todo: pass it in gridOut.println(JsonObject);
-        gridOut.println(command);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("0", command);
+        gridOut.println(jsonObject); // passing a JsonObject.
     }
-        
-
 }

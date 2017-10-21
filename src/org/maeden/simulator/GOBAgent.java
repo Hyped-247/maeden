@@ -522,6 +522,7 @@ public class GOBAgent extends GridObject {
      * Post: Agent does appropriate action
      * @param action the command string that the agent controller wants to perform
      */
+    // todo: This could be the place where you are going to upack the data.
     public void processAction(String action) {
         String[] actionLetters =  {"f", "b", "r", "l", "u", "d", "g", "w", "t", "s", "a"}; // but not 'k' to killself
         char actionChar, origActionChar = Character.toLowerCase(action.toCharArray()[0]);

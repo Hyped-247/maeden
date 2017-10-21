@@ -45,8 +45,7 @@ public abstract class AbstractAgentController {
      */
     // Todo: call effectorSend() do not use gc.gridOut.println(command);
     public void sendEffectorCommand(String command) {
-	// System.out.println("sendEffectorCommand sending: " + command);
-	gc.gridOut.println(command);
+	    gc.effectorSend(command); // calling effectorSend method in CridClient
     }
  
     /**

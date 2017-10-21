@@ -130,7 +130,14 @@ public class SensoryPacket
             this.lastActionStatus = rawSenseData.get(6).equals("ok".toLowerCase());
             // world Time
             this.worldTime = Integer.parseInt(rawSenseData.get(7).toString());
-        }catch (NullPointerException e){ e.getMessage(); }
+        }catch (NullPointerException e){
+            System.out.println("There is nothing in the rawSenseData.. ");
+            e.getMessage();
+        }catch (IndexOutOfBoundsException i){
+            System.out.println("The size of rawSenseData is: 0");
+            i.getMessage();
+
+        }
 
     }
 
