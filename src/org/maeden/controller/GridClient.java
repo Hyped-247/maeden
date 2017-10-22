@@ -1,9 +1,12 @@
 package org.maeden.controller;
 
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import java.io.*;
+import java.lang.reflect.Array;
 import java.net.*;
+import java.util.Collections;
 
 /**
  * class GridClient : useful for any controller that wants to connect and interact with
@@ -76,8 +79,22 @@ public class GridClient {
      * *NOTE: GOBAgent only looks at first letter of command string unless talk or shout is sent*
      */
     public void effectorSend(String command) {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("0", command);
+        char[] command_Array = command.toCharArray(); // create an Array of char of all the commands
+        JSONObject jsonObject = new JSONObject(); // create an object that will store the data.
+        JSONArray jsonArray = new JSONArray(); // a list of all the commands.
+        for (char com : command_Array){
+            jsonArray.add(String.valueOf(com));
+        }
+       // System.out.println("This is how the Array: "+jsonArray);
+        jsonObject.put("command", jsonArray);
         gridOut.println(jsonObject); // passing a JsonObject.
     }
 }
+
+
+
+
+
+
+
+

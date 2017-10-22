@@ -233,23 +233,26 @@ public class Grid
      */
     // todo: This is were the infomation is going to be unpack.
      void processAgentActions() {
+         /*
         try {
             for (GOBAgent a : agents) {
                 a.getNextCommand();           //have current agent get next command from controller process
                 //System.out.println("processing agent " + a.getAgentID() + " with action: " + a.nextCommand());
             }
         } catch (Exception e) { System.out.println("Failed reading the next command: " + e);}
+        */
         try {
             int numberRequest = 0; // group2 : Ben part.
             for (GOBAgent a : agents) {    //process and perform each agent's action
                 //Process the action only if there is a next command
-                if(a.nextCommand() != null)
+                if(a.recv().ready())
                     {
-                        a.processAction(a.nextCommand());
+                        a.processAction(a.recv().readLine());
                         a.setNeedUpdate(true);
                         numberRequest++;  // group2 : Ben part.
                     }
                 else {
+                 //   a.processAction(a.recv().readLine());
                     a.decrEnergyWait(); // otherwise, deduct the wait cost from agent's energy
                 }
             }

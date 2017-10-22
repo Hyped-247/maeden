@@ -1,5 +1,10 @@
 package org.maeden.simulator;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import java.lang.Math;
 ///*maedengraphics
 import java.awt.*;
@@ -9,7 +14,6 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.HashMap;
 import java.net.Socket;
-import java.net.ServerSocket;
 import java.io.PrintWriter;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -186,10 +190,11 @@ public class GOBAgent extends GridObject {
             // Only read in the next command if there is one
             // if there is not, set nextCommand to null
             if(recv.ready()){
-                nextCommand = recv.readLine();
+                processAction(recv.readLine());
+                System.out.print("This is the next command: "+recv.readLine());
             }
             else {
-                nextCommand = null;
+                 processAction(recv.readLine());
             }
         } catch (Exception e) { System.out.println("getNextCommand: Failed to receive command from controller process " + e); }
     }
@@ -378,7 +383,7 @@ public class GOBAgent extends GridObject {
      * using Food increases the agent's energy by energy-increment
      * using other objects applies the object to the object immediately in front of the agent
      */
-    public void use(String uAction){ 
+    public void use(String uAction){
         GridObject useTool = null;
         // if on quicksand, die
         dieIfQuicksand();
@@ -520,55 +525,67 @@ public class GOBAgent extends GridObject {
      * chooses an appropriate action based on the first letter of the action String
      * Pre: first letter of action == f, b, r, l, u, d, g, h, w, t, s, a, k
      * Post: Agent does appropriate action
-     * @param action the command string that the agent controller wants to perform
+     * @param act the command string that the agent controller wants to perform
      */
     // todo: This could be the place where you are going to upack the data.
-    public void processAction(String action) {
-        String[] actionLetters =  {"f", "b", "r", "l", "u", "d", "g", "w", "t", "s", "a"}; // but not 'k' to killself
-        char actionChar, origActionChar = Character.toLowerCase(action.toCharArray()[0]);
-        String actionLetter;
-        resetActionStatus();
-        if (STOCHASTICISM && (Math.random() < STOCHASTIC_RATE)) {       // something random happened
-            actionLetter = actionLetters[randGenerator.nextInt(actionLetters.length)];
-            actionChar = actionLetter.charAt(0);
-            action = actionLetter + action.substring(1, action.length());
-            System.out.println("processAction: about to work with '" + action + "' instead of orig act: '" + origActionChar + "'");
-        } else {                                                        // do what was intended
-            actionChar = origActionChar;
-        }
-        switch(actionChar) {
-        case 'f': moveForward();   //move forward command
-            break;
-        case 'b': moveBackward();  //move backward command
-            break;
-        case 'r': turnRight(); //turn right command
-            break;
-        case 'l': turnLeft(); //turn left command
-            break;
-        case 'u': use(action); //use command
-            break;
-        case 'd': drop(action); //drop command
-            break;
-        case 'g': grab(action);  //grab command
-            break;
-        case 'w': // wait command
-            agentEnergy -= costs.get("wait"); dieIfNoEnergy(); dieIfQuicksand();
-            break;
-        case 't': communicate(action);         //talk command
-            break;
-        case 's': communicate(action);         //shout command
-            break;
-        case 'a': attack();     // attack another agent
-            break;
-        case 'k': agentEnergy = 0; dieIfNoEnergy();     // allow agents to kill themselves
-            break;
-        default:
-            System.out.println("processAction: Illegal command " + action);
-            break;
-        }
-        if (actionChar != origActionChar){
-            System.out.println("processAction: actionChar != origActChar -- lastActionFails");
-            lastActionFails();
+    public void processAction(String act) {
+        try {
+            JSONParser jsonParser = new JSONParser();
+            Object object = jsonParser.parse(act);
+            JSONObject jsonObject = (JSONObject) object;
+            JSONArray actions = (JSONArray) jsonObject.get("command");
+
+            for (int i = 0; i < actions.size(); i++) {
+
+                char[] actionLetters =  {'f', 'b', 'r', 'l', 'u', 'd', 'g', 'w', 't', 's', 'a'}; // but not 'k' to killself
+                char actionChar, origActionChar = actions.get(i).toString().charAt(0);
+                char actionLetter;
+                resetActionStatus();
+                if (STOCHASTICISM && (Math.random() < STOCHASTIC_RATE)) {       // something random happened
+                    actionLetter = actionLetters[randGenerator.nextInt(actionLetters.length)];
+                    actionChar = actionLetter;
+                    System.out.println("processAction: about to work with '" + actionChar + "' instead of orig act: '"
+                            + origActionChar + "'");
+                } else {                                                        // do what was intended
+                    actionChar = origActionChar;
+                }
+                switch(actionChar) {
+                    case 'f': moveForward();   //move forward command
+                        break;
+                    case 'b': moveBackward();  //move backward command
+                        break;
+                    case 'r': turnRight(); //turn right command
+                        break;
+                    case 'l': turnLeft(); //turn left command
+                        break;
+                    case 'u': use(String.valueOf(actionChar)); //use command
+                        break;
+                    case 'd': drop(String.valueOf(actionChar)); //drop command
+                        break;
+                    case 'g': grab(String.valueOf(actionChar));  //grab command
+                        break;
+                    case 'w': // wait command
+                        agentEnergy -= costs.get("wait"); dieIfNoEnergy(); dieIfQuicksand();
+                        break;
+                    case 't': communicate(String.valueOf(actionChar));         //talk command
+                        break;
+                    case 's': communicate(String.valueOf(actionChar));         //shout command
+                        break;
+                    case 'a': attack();     // attack another agent
+                        break;
+                    case 'k': agentEnergy = 0; dieIfNoEnergy();     // allow agents to kill themselves
+                        break;
+                    default: System.out.println("processAction: Illegal command " + String.valueOf(actionChar));
+                        break;
+                }
+                if (actionChar != origActionChar){
+                    System.out.println("processAction: actionChar != origActChar -- lastActionFails");
+                    lastActionFails();
+                }
+            }
+        } catch (ParseException e) {
+            e.getMessage();
+            e.printStackTrace();
         }
     }
 

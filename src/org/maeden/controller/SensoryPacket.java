@@ -136,6 +136,7 @@ public class SensoryPacket
         }catch (IndexOutOfBoundsException i){
             System.out.println("The size of rawSenseData is: 0");
             i.getMessage();
+            System.exit(1);
 
         }
 
