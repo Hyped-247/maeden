@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="81b82e89-7f6b-4c41-a403-5631a81e4ba1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/maeden/controller/GridClient.java" afterPath="$PROJECT_DIR$/src/org/maeden/controller/GridClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/maeden/controller/SensoryPacket.java" afterPath="$PROJECT_DIR$/src/org/maeden/controller/SensoryPacket.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/maeden/simulator/Grid.java" afterPath="$PROJECT_DIR$/src/org/maeden/simulator/Grid.java" />
-    </list>
+    <list default="true" id="81b82e89-7f6b-4c41-a403-5631a81e4ba1" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -39,7 +34,7 @@
       <file leaf-file-name="Grid.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/maeden/simulator/Grid.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
+            <state relative-caret-position="-71">
               <caret line="683" column="0" lean-forward="true" selection-start-line="683" selection-start-column="0" selection-end-line="683" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -664,12 +659,12 @@
       <workItem from="1508262001470" duration="5114000" />
       <workItem from="1508432796079" duration="7966000" />
       <workItem from="1508615414327" duration="14515000" />
-      <workItem from="1508732291233" duration="5528000" />
+      <workItem from="1508732291233" duration="5573000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="112973000" />
+    <option name="totallyTimeSpent" value="113018000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -1182,7 +1177,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/maeden/simulator/Grid.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
+        <state relative-caret-position="-71">
           <caret line="683" column="0" lean-forward="true" selection-start-line="683" selection-start-column="0" selection-end-line="683" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
