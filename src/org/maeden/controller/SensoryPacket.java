@@ -91,22 +91,18 @@ public class SensoryPacket
              jsonArray.remove(0); // take this out because we want 0 to be smell.
              return jsonArray;
          } catch (Exception e) { // if throw exception then it means that it ended, sucecced, or died.
+             /*
              switch (String.valueOf(e)){
                  case "d" : System.out.println("The last status is: "+"DIE"); end();
                  case "e" : System.out.println("The last status is: "+"END"); end();
                  case "s" : System.out.println("The last status is: "+"SUCCESS"); end();
                  default: e.getMessage();
              }
+             */
              return new JSONArray();
          }
     }
 
-    /**
-     * This method is going to kill the program.
-     */
-    void end(){
-         System.exit(1);
-    }
     /**
      * Perform any pre-processing, especially on the visual data
      * @param rawSenseData the raw unprocessed sense data

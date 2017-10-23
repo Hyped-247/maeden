@@ -4,9 +4,7 @@ package org.maeden.controller;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import java.io.*;
-import java.lang.reflect.Array;
 import java.net.*;
-import java.util.Collections;
 
 /**
  * class GridClient : useful for any controller that wants to connect and interact with
@@ -90,11 +88,3 @@ public class GridClient {
         gridOut.println(jsonObject); // passing a JsonObject.
     }
 }
-
-
-
-
-
-
-
-
