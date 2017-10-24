@@ -1,5 +1,7 @@
 package org.maeden.simulator;
 
+import sun.nio.ch.sctp.Shutdown;
+
 import java.lang.Math;
 import java.util.StringTokenizer;
 ///*maedengraphics
@@ -75,7 +77,7 @@ public class Grid
      * @param approxWidth the target size for the resulting window that displays the world
      * @param showD       whether or not to actually display the world
      */
-    public Grid(String filePath, int approxWidth, boolean showD) throws FileNotFoundException, IOException {
+    public Grid(String filePath, int approxWidth, boolean showD) throws IOException {
         try {
             gwServer = new ServerSocket(MAEDENPORT);        //create new server Socket on Maeden port
         } catch (IOException e) {
@@ -230,9 +232,6 @@ public class Grid
             } catch (Exception e) {
                 System.out.println("error with sleeping");
             }
-
-            // if(killGrid)
-            //   cleanClose();
             ///*maedengraphics
             if (showDisplay) {
                 repaint();
@@ -568,7 +567,12 @@ public class Grid
         paint(g);
     }
 
-    private void kill() {
+    /**
+     *  This method is going to take care of everything closing wise.
+     *  Instead of using the System.exit() method, we are going to use the kill method.
+     *  This method is going to make sure that everything closes naturally.
+     */
+    private void kill() throws IOException {
         killGrid = false;
         try {
             gwServer.close(); //moved closing the server socket to the run function in order to not close it prematurely
@@ -584,7 +588,7 @@ public class Grid
      * calls the cleanDie method for each agent which closes their buffers and sockets, then shuts down serversocket
      * POST: buffers and sockets closed, grid exits
      */
-    public void cleanClose() {
+    public void cleanClose() throws IOException {
         // *********** only for demo purposes *** remove
         //try {Thread.sleep(20000);} catch (Exception e) {System.out.println("error with sleeping"); }
         // *** remove **********************************
@@ -596,15 +600,10 @@ public class Grid
                 g.cleanDie();
             }
             agents.clear();
+            this.dispose();// Close the GUI . Credit:  Riley.
         }
-        /*try {
-          gwServer.close();
-          }
-          catch(Exception e) {System.out.println("error closing server socket");}*/
-        kill();  //exit
+
     }
-    //socket.Shutdown(SocketShutdown.Both);
-    //socket.Close();
 
     /** print the proper usage of the program
      */
@@ -680,8 +679,6 @@ public class Grid
         /** the run method for this AgentListener thread gets called by start() */
         public void run() {
             Socket tSock;
-            // Todo: This is the first while loop that we want to kill.
-
                 while (killGrid) {
                     try {
                         tSock = srvSock.accept();           // listen for connection, and
