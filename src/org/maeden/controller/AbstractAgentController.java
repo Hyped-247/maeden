@@ -43,7 +43,6 @@ public abstract class AbstractAgentController {
      * post: command is sent via the printwriter
      * @param command the intended command to be performed by the agent in the simulator
      */
-    // Todo: call effectorSend() do not use gc.gridOut.println(command);
     public void sendEffectorCommand(String command) {
 	    gc.effectorSend(command); // calling effectorSend method in CridClient
     }

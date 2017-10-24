@@ -2,12 +2,11 @@ package org.maeden.controller;
 
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
-import java.io.IOException;
-import java.util.*;
 import java.io.BufferedReader;
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 /**
  * Simple class for representing 'pre-processed' sensory packets.
  * Agents can bypass the low-level 'raw' sensory data and especially the problem of parsing
@@ -23,7 +22,6 @@ public class SensoryPacket
     String status;
     String smell;
     List<Character> inventory;
-    //List<Character>[][] visualArray = (List<Character>[][])new ArrayList[7][5];
     ArrayList<ArrayList<Vector<String>>> visualArray;
     List<Character> groundContents;
     JSONArray messages;
@@ -88,20 +86,23 @@ public class SensoryPacket
              JSONParser jsonParser = new JSONParser();
              Object object = jsonParser.parse(gridIn.readLine());
              JSONArray jsonArray = (JSONArray) object;
-             jsonArray.remove(0); // take this out because we want 0 to be smell.
+                 jsonArray.remove(0); // take this out because we want 0 to be smell.
              return jsonArray;
          } catch (Exception e) { // if throw exception then it means that it ended, sucecced, or died.
-             /*
-             switch (String.valueOf(e)){
-                 case "d" : System.out.println("The last status is: "+"DIE"); end();
-                 case "e" : System.out.println("The last status is: "+"END"); end();
-                 case "s" : System.out.println("The last status is: "+"SUCCESS"); end();
-                 default: e.getMessage();
-             }
-             */
-             return new JSONArray();
+                System.exit(1);
          }
+         return new JSONArray();
+     }
+     /*
+    boolean end(String e){
+        switch (e){
+            case "d" : System.out.println("The last status is: "+"DIE"); return true;
+            case "e" : System.out.println("The last status is: "+"END"); return true;
+            case "s" : System.out.println("The last status is: "+"SUCCESS"); return true;
+            default: return false;
+        }
     }
+    */
 
     /**
      * Perform any pre-processing, especially on the visual data
@@ -129,11 +130,6 @@ public class SensoryPacket
         }catch (NullPointerException e){
             System.out.println("There is nothing in the rawSenseData.. ");
             e.getMessage();
-        }catch (IndexOutOfBoundsException i){
-            System.out.println("The size of rawSenseData is: 0");
-            i.getMessage();
-            System.exit(1);
-
         }
 
     }

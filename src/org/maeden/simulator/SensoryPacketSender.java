@@ -76,7 +76,6 @@ public class SensoryPacketSender
      * The row behind the agent is given first followed by its current row and progressing away from the agent
      * with characters left-to-right in visual field.
      */
-    // Todo: Come back and make the code look cleaner.
     private JSONArray visField(Point aPt, Point heading) {
         JSONArray firstdimension = new JSONArray(); // firstdimension
         int senseRow, senseCol, counter=0;

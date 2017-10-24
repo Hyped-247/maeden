@@ -198,10 +198,6 @@ public class GOBAgent extends GridObject {
             }
         } catch (Exception e) { System.out.println("getNextCommand: Failed to receive command from controller process " + e); }
     }
-    //public accessor for viewing the next command
-    public String nextCommand() {
-        return nextCommand;
-    }
     //public accessor for dx
     public int dx() {
         return dx;
@@ -527,7 +523,6 @@ public class GOBAgent extends GridObject {
      * Post: Agent does appropriate action
      * @param act the command string that the agent controller wants to perform
      */
-    // todo: This could be the place where you are going to upack the data.
     public void processAction(String act) {
         try {
             JSONParser jsonParser = new JSONParser();
@@ -536,7 +531,6 @@ public class GOBAgent extends GridObject {
             JSONArray actions = (JSONArray) jsonObject.get("command");
 
             for (int i = 0; i < actions.size(); i++) {
-
                 char[] actionLetters =  {'f', 'b', 'r', 'l', 'u', 'd', 'g', 'w', 't', 's', 'a'}; // but not 'k' to killself
                 char actionChar, origActionChar = actions.get(i).toString().charAt(0);
                 char actionLetter;

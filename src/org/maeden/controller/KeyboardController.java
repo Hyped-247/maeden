@@ -7,23 +7,8 @@ import java.awt.event.*;
 import java.net.*;
 import java.util.*;
 import java.util.List;
-
 import org.json.simple.JSONArray;
-import org.maeden.simulator.GOBAgent;
-import org.maeden.simulator.GOBDoor;
-import org.maeden.simulator.GOBFood;
-import org.maeden.simulator.GOBFoodCollect;
-import org.maeden.simulator.GOBGold;
-import org.maeden.simulator.GOBHammer;
-import org.maeden.simulator.GOBKey;
-import org.maeden.simulator.GOBNarrows;
-import org.maeden.simulator.GOBQuicksand;
-import org.maeden.simulator.GOBRayGun;
-import org.maeden.simulator.GOBRobot;
-import org.maeden.simulator.GOBRock;
-import org.maeden.simulator.GOBWall;
-import org.maeden.simulator.GridDisplay;
-import org.maeden.simulator.GridObject;
+import org.maeden.simulator.*;
 import sun.plugin.javascript.navig4.Link;
 
 /**
@@ -47,12 +32,11 @@ public class KeyboardController extends AbstractAgentController {
     private static final int cx = 5;                    //sets size for the visual array
     private static final int ry = 7;
     private static final int dashHeight=280;// height of panel for dashboard (apx 3.5 * number of items to display)
-
     private ArrayList<GridObject> visField;        // stores GOB's for painting the visual field
     private GridDisplay gd;                         //for graphical display of map
     private Dashboard db;
     private boolean termOut = false;
-    
+
 
     /**
      * KeyboardController constructor takes a string and an int
@@ -74,7 +58,6 @@ public class KeyboardController extends AbstractAgentController {
         db = new Dashboard(cx * cellSize, dashHeight, gc.gridOut);
         myWin.add(gd);
         myWin.add(db);
-
         myWin.setVisible(true);
     }
 
@@ -85,7 +68,6 @@ public class KeyboardController extends AbstractAgentController {
     public void processSensoryInfo() {
 
         SensoryPacket sp = currentSensePacket;
-        // JSONArray data = sp.getRawSenseData();
 
         // 1: get the smell info
         String heading = sp.getSmell();
@@ -173,7 +155,11 @@ public class KeyboardController extends AbstractAgentController {
         KeyboardController client = new KeyboardController("localhost", MAEDENPORT);
         client.run();
     }
-    
+    public void kill(){
+        myWin.dispose();
+    }
+
+
     //-------------------------------------------------------------------------
  
     public class Dashboard extends Panel {
@@ -252,8 +238,6 @@ public class KeyboardController extends AbstractAgentController {
             add(worldTimeIs);
             add(worldTime);
 
-            //      validate();
-            //      System.out.println(foodIs.getWidth() + " " + foodIs.getHeight());
         }
 
         //, String h, String inv, String g, String e, String m) {
@@ -270,7 +254,6 @@ public class KeyboardController extends AbstractAgentController {
 
 
         class GridDisplayListener implements ActionListener{
-            
             private PrintWriter gridOut;
             private TextField text;
             private String commandString;   //stores the string that is entered by the user
@@ -278,7 +261,6 @@ public class KeyboardController extends AbstractAgentController {
             public GridDisplayListener(PrintWriter pw, TextField tf){
                 gridOut=pw;
                 text=tf;
-                //System.out.println("initialized");
             }
 
             public void actionPerformed(ActionEvent e){
@@ -286,10 +268,13 @@ public class KeyboardController extends AbstractAgentController {
                 if (invalidCommand(commandString)){
                     printHelp();
                 } else {
-                    // Todo: change from gridOut.println(commandString); to sendEffectorCommand(commandString);
+                    for (char com : commandString.toCharArray()){
+                        String string_com = String.valueOf(com);
+                        if (string_com.equals("k")){
+                            kill();
+                        }
+                    }
                     sendEffectorCommand(commandString);
-                   //  gridOut.println(commandString);
-                    //System.out.println("SENT: " + text.getText().toLowerCase());
                 }
                 text.setText("");
             }

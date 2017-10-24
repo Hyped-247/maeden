@@ -1,21 +1,18 @@
 package org.maeden.simulator;
 
-import sun.nio.ch.sctp.Shutdown;
+
+import org.maeden.controller.KeyboardController;
 
 import java.lang.Math;
-import java.util.StringTokenizer;
+import java.util.*;
 ///*maedengraphics
 import java.awt.*;
 //maedengraphics*/
 import java.awt.Point;
-import java.util.Collections;
-import java.util.List;
-import java.util.LinkedList;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.List;
 
 /**
  *@author:  Wayne Iba,
@@ -213,7 +210,6 @@ public class Grid
      * run: run the world
      */
     public void run() {
-        // Todo: This is the first while loop that we want to kill.
         while (killGrid) {
             try {
                 processAgentActions();
@@ -245,16 +241,7 @@ public class Grid
      * processAgentActions: for each of the agents, if they have actions
      * to be processed, get them and do whatever needs to be done.
      */
-    // todo: This is were the infomation is going to be unpack.
     void processAgentActions() {
-         /*
-        try {
-            for (GOBAgent a : agents) {
-                a.getNextCommand();           //have current agent get next command from controller process
-                //System.out.println("processing agent " + a.getAgentID() + " with action: " + a.nextCommand());
-            }
-        } catch (Exception e) { System.out.println("Failed reading the next command: " + e);}
-        */
         try {
             int numberRequest = 0; // group2 : Ben part.
             for (GOBAgent a : agents) {    //process and perform each agent's action
@@ -264,7 +251,6 @@ public class Grid
                     a.setNeedUpdate(true);
                     numberRequest++;  // group2 : Ben part.
                 } else {
-                    //   a.processAction(a.recv().readLine());
                     a.decrEnergyWait(); // otherwise, deduct the wait cost from agent's energy
                 }
             }
@@ -281,7 +267,6 @@ public class Grid
         } catch (Exception e) {
             System.out.println("Failed processing the messages: " + e);
         }
-        //System.out.println("Messages collected");
         try {
             for (Iterator<GOBAgent> i = agents.iterator(); i.hasNext(); ) {          //remove any dead agents
                 GOBAgent a = i.next();
@@ -296,8 +281,7 @@ public class Grid
                     case 's':
                         sps.sendSensationsToAgent(a, "SUCCESS"); kill(); break;
                     case 'c':                       // continuing: agent is alive, hasn't found the food
-                    default:
-                        break;
+                    default: break;
                 }
             }
         } catch (Exception e) {
@@ -527,39 +511,47 @@ public class Grid
      */
     ///*maedengraphics
     public void paint(Graphics rg) {
-        Dimension d = getSize();
-        if (d.width != physWid || d.height != physHt)
-            setSize(physWid, physHt);
-        if (offscreen == null || offscreen.getWidth(null) != d.width || offscreen.getHeight(null) != d.height)
-            offscreen = createImage(d.width, d.height);
+        try {
 
-        Graphics g = offscreen.getGraphics();
-        //System.out.println("image dimension: " + d.width + "x" + d.height);
+            Dimension d = getSize();
+            if (d.width != physWid || d.height != physHt) {
+                setSize(physWid, physHt);
+            }
+            if (offscreen == null || offscreen.getWidth(null) != d.width || offscreen.getHeight(null) != d.height) {
+                offscreen = createImage(d.width, d.height);
+            }
 
-        g.setColor(getBackground());
-        g.fillRect(0, 0, d.width, d.height);
+            Graphics g = offscreen.getGraphics();
+            //System.out.println("image dimension: " + d.width + "x" + d.height);
 
-        iTrans = getInsets();             //window margins
-        g.translate(iTrans.left, iTrans.top); //compensates for window margins
-        g.setColor(Color.gray.brighter());          //set the color
+            g.setColor(getBackground());
+            g.fillRect(0, 0, d.width, d.height);
 
-        // draw the grid lines
-        for (int i = 0; i < yRows; i++)   //draw horizontal lines
-            g.drawLine(0, (i * squareSize), (xCols * squareSize), (i * squareSize));
+            iTrans = getInsets();             //window margins
+            g.translate(iTrans.left, iTrans.top); //compensates for window margins
+            g.setColor(Color.gray.brighter());          //set the color
 
-        for (int j = 0; j < xCols; j++)    //draw vertical lines
-            g.drawLine((j * squareSize), 0, (j * squareSize), (yRows * squareSize));
+            // draw the grid lines
+            for (int i = 0; i < yRows; i++)   //draw horizontal lines
+                g.drawLine(0, (i * squareSize), (xCols * squareSize), (i * squareSize));
 
-        // draw the objects
-        for (GridObject gob : gobs) {
-            gob.paint(g);   //each gridobject paints itself
+            for (int j = 0; j < xCols; j++)    //draw vertical lines
+                g.drawLine((j * squareSize), 0, (j * squareSize), (yRows * squareSize));
+
+            // draw the objects
+            for (GridObject gob : gobs) {
+                gob.paint(g);   //each gridobject paints itself
+            }
+            g.translate(-iTrans.left, -iTrans.top);
+
+            if (!rg.drawImage(offscreen, 0, 0, null)) {
+                System.out.println("Didn't finish loading, . . .");
+            }
+            g.dispose();
+
+        }catch (ConcurrentModificationException exception){
+            System.out.println("Closing successfully! ");
         }
-        g.translate(-iTrans.left, -iTrans.top);
-
-        if (!rg.drawImage(offscreen, 0, 0, null))
-            System.out.println("Didn't finish loading, . . .");
-        g.dispose();
-
     }
 
     // update: override the default update
@@ -600,7 +592,8 @@ public class Grid
                 g.cleanDie();
             }
             agents.clear();
-            this.dispose();// Close the GUI . Credit:  Riley.
+          //  this.dispose();// Close the GUI . Credit:  Riley.
+            super.dispose();
         }
 
     }
@@ -661,9 +654,9 @@ public class Grid
     class AgentListener extends Thread {
 
         private ServerSocket srvSock;
+        private int squareSize;
         private int x;
         private int y;
-        private int squareSize;
         private Grid grid;
         private char head;
         // constructor
@@ -690,14 +683,6 @@ public class Grid
                         try { sps.sendSensationsToAgent(gagent); }
                         catch (Exception e) {System.out.println("AgentListener.run(): failure sending sensations " + e); }
                         Thread.sleep(50);
-                        /*
-                        if (!killGrid) {
-                            try {
-                                gwServer.close(); //moved closing the server socket to the run function in order to not close it prematurely
-                            }
-                            catch(Exception e) {System.out.println("error closing server socket");}
-                        }
-                        */
                     } catch (IOException e) { System.out.println("AgentListener.run(): failed accepting socket connection: " + e);
                     } catch (Exception e) {
                         System.out.println("AgentListener.run(): some other exception: ");
